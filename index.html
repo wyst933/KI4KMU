@@ -4,23 +4,28 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>KMU-KI-Podcast – KI, die im Betrieb ankommt.</title>
-<meta name="description" content="Der Podcast für Schweizer KMU, die KI praktisch verstehen wollen: Aufbau, Kosten, Risiken und Recht – ohne Buzzwords, mit echten Quellen.">
+<meta name="description" content="Der Podcast für Schweizer KMU, die KI praktisch verstehen wollen: Aufbau, Kosten, Risiken und Recht – jede Episode mit offenem Quellenverzeichnis.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta property="og:title" content="KMU-KI-Podcast">
+<meta property="og:description" content="KI, die im Betrieb ankommt. Praktische KI-Einordnung für Schweizer KMU, mit vollständigem Quellenverzeichnis pro Episode.">
+<meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
 <header class="site-header">
   <div class="wrap header-row">
-    <a href="#start" class="brand">
-      <span class="brand-kmu">KMU</span><span class="dot"></span><span class="brand-ki">KI</span><span class="dot"></span><span class="brand-podcast">Podcast</span>
+    <a href="index.html" class="brand">
+      <span>KMU</span><span class="dot"></span><span>KI</span><span class="dot"></span><span>Podcast</span>
     </a>
     <nav class="main-nav" id="main-nav">
       <a href="#episoden">Episoden</a>
       <a href="#serien">Serien</a>
       <a href="#workshop">Workshop</a>
+      <a href="ueber.html">Über das Projekt</a>
       <a href="#kontakt">Kontakt</a>
     </nav>
     <button class="nav-toggle" id="navToggle" aria-label="Menü öffnen" aria-expanded="false">
@@ -34,98 +39,85 @@
   <section class="hero">
     <div class="wrap hero-grid">
       <div class="hero-text">
-        <p class="eyebrow">Der Podcast für Schweizer KMU</p>
+        <p class="eyebrow">// der_podcast_für_schweizer_kmu</p>
         <h1>KI, die im Betrieb<br>ankommt.</h1>
-        <p class="hero-lead">Kein Hype, keine Buzzwords. Fünf fiktive KI-Stimmen ordnen jede Woche ein, was Schweizer KMU über künstliche Intelligenz wirklich wissen müssen — mit echten Quellen, echten Kosten und echten Grenzen.</p>
+        <p class="hero-lead">Fünf fiktive KI-Stimmen ordnen jede Woche ein, was Schweizer KMU über künstliche Intelligenz wirklich wissen müssen. Jede Episode durchläuft einen 8-Schritte-Redaktionsprozess und nennt ihre Quellen offen — statt blosser Behauptungen.</p>
         <div class="hero-actions">
-          <a href="#episoden" class="btn btn-primary">Neueste Episode hören</a>
+          <a href="#episoden" class="btn btn-primary">Episoden ansehen</a>
           <a href="#workshop" class="btn btn-ghost">KI-Standortbestimmung buchen</a>
         </div>
       </div>
-      <div class="hero-panel" aria-hidden="true">
-        <div class="panel-row"><span>Aktualitätscheck</span><strong>Mauro</strong></div>
-        <div class="panel-row"><span>Architektur</span><strong>Thomas</strong></div>
-        <div class="panel-row"><span>Sicherheit</span><strong>Luana</strong></div>
-        <div class="panel-row"><span>Recht (CH)</span><strong>Ladina</strong></div>
-        <div class="panel-row"><span>Kosten</span><strong>Micio</strong></div>
+      <div class="protocol" aria-label="Beispiel eines Verifizierungs-Protokolls">
+        <p class="protocol-title">Verifizierungs-Protokoll · jede Episode</p>
+        <div class="protocol-step"><span class="step-no">01</span><span class="step-label">Themenwahl</span><span class="step-state">geprüft</span></div>
+        <div class="protocol-step"><span class="step-no">02</span><span class="step-label">Fachliche Recherche</span><span class="step-state">geprüft</span></div>
+        <div class="protocol-step"><span class="step-no">04</span><span class="step-label">Verständlichkeit (Nora)</span><span class="step-state">geprüft</span></div>
+        <div class="protocol-step"><span class="step-no">05</span><span class="step-label">Risiko-Eskalation (Felix)</span><span class="step-state">geprüft</span></div>
+        <div class="protocol-step"><span class="step-no">06</span><span class="step-label">Dramaturgie (Sven)</span><span class="step-state">geprüft</span></div>
+        <div class="protocol-step"><span class="step-no">08</span><span class="step-label">Finale Produktion</span><span class="step-state">live</span></div>
       </div>
     </div>
   </section>
 
   <section class="disclaimer-strip">
     <div class="wrap">
-      <p>Alle Stimmen in diesem Podcast — Marina, KI-Stefan, Mauro, Luana, Ladina, Micio, Thomas — sind fiktive KI-Charaktere. Kein Ersatz für echte Rechts-, Steuer- oder IT-Sicherheitsberatung.</p>
+      <p>Alle Stimmen — Marina, KI-Stefan, Mauro, Luana, Ladina, Micio, Thomas — sind fiktive KI-Charaktere. Kein Ersatz für echte Rechts-, Steuer- oder IT-Sicherheitsberatung. <a href="ueber.html">Mehr dazu</a>.</p>
     </div>
   </section>
 
   <section id="episoden" class="section">
     <div class="wrap">
       <h2>Episoden</h2>
-      <p class="section-lead">Jede Episode ist quellenbelegt, mit klarer Trennung zwischen Fallstudie und Modellrechnung.</p>
+      <p class="section-lead">Jede Episode mit eigener Seite, vollständigem Quellenverzeichnis und Verifizierungs-Protokoll.</p>
 
-      <div class="episode-grid">
+      <nav class="docket" aria-label="Episodenliste">
 
-        <article class="episode-card" data-series="recht">
-          <p class="ep-no">EP 01</p>
-          <h3>Zwei Stichtage, nur einer noch gültig: Was vom EU&nbsp;AI&nbsp;Act für Schweizer KMU wirklich bleibt</h3>
-          <p class="ep-meta">Ladina · Mauro &nbsp;·&nbsp; ca. 13–14 Min.</p>
-          <p class="ep-summary">Der Digital Omnibus verschiebt die Hochrisiko-Pflichten auf Dezember 2027 — aber die KI-Kompetenzpflicht bleibt beim 2. August 2026, für praktisch jeden Betrieb.</p>
-          <ul class="ep-learnings">
-            <li>Hochrisiko-Pflichten (Anhang III): verschoben auf Dez. 2027</li>
-            <li>KI-Kompetenzpflicht: bleibt 2. August 2026, unabhängig vom Hochrisiko-Status</li>
-            <li>CH-Betroffenheit bei EU-Geschäft: Einzelfallfrage, Fachperson konsultieren</li>
-          </ul>
-        </article>
+        <a class="docket-item" href="episoden/ep-01-eu-ai-act.html">
+          <span class="docket-no">EP 01</span>
+          <span>
+            <h3 class="docket-title">Zwei Stichtage, nur einer noch gültig: Was vom EU AI Act für Schweizer KMU wirklich bleibt</h3>
+            <p class="docket-meta">Ladina · Mauro · ca. 13–14 Min.</p>
+          </span>
+          <span class="docket-arrow">→</span>
+        </a>
 
-        <article class="episode-card" data-series="chatbot">
-          <p class="ep-no">EP 02 · Serie 1/4</p>
-          <h3>Der Kollege, der nie genervt ist: Wissens-Chatbot für neue Mitarbeitende — Aufbau und Kosten</h3>
-          <p class="ep-meta">Thomas · Micio · Ladina &nbsp;·&nbsp; ca. 15–16 Min.</p>
-          <p class="ep-summary">Eine Treuhand-Firma in Solothurn hat ihren Wissens-Chatbot in unter vier Monaten amortisiert. Setup-Kosten in der Schweiz liegen typischerweise zwischen CHF 5'000 und 18'000.</p>
-          <ul class="ep-learnings">
-            <li>RAG-Architektur: Wissensbasis, Retrieval, Zugang — in dieser Reihenfolge planen</li>
-            <li>Fallstudie Solothurn: CHF 5'500 Setup, CHF 120/Monat, Amortisation &lt;4 Monate</li>
-            <li>Saubere Dokumente vor Tool-Wahl — das bestimmt den Erfolg, nicht der Anbieter</li>
-          </ul>
-        </article>
+        <a class="docket-item" href="episoden/ep-02-wissens-chatbot-aufbau.html">
+          <span class="docket-no">EP 02<span class="series">Serie 1/4</span></span>
+          <span>
+            <h3 class="docket-title">Der Kollege, der nie genervt ist: Wissens-Chatbot für neue Mitarbeitende — Aufbau und Kosten</h3>
+            <p class="docket-meta">Thomas · Micio · Ladina · ca. 15–16 Min.</p>
+          </span>
+          <span class="docket-arrow">→</span>
+        </a>
 
-        <article class="episode-card" data-series="chatbot">
-          <p class="ep-no">EP 03 · Serie 2/4</p>
-          <h3>Wenn der hilfreiche Chatbot zu viel weiss: Sicherheitsrisiken beim Wissens-Assistenten</h3>
-          <p class="ep-meta">Luana · Thomas · Ladina &nbsp;·&nbsp; ca. 14–15 Min.</p>
-          <p class="ep-summary">Ohne Zugriffskontrolle kennt ein Wissens-Chatbot keine Abteilungsgrenzen — und kann Gehaltsdaten an Personen ausgeben, die sie nie sehen sollten.</p>
-          <ul class="ep-learnings">
-            <li>Risiko: abteilungsübergreifender Datenabfluss ("RAG-Leaks")</li>
-            <li>Zweites Risiko: indirekte Prompt-Injection über manipulierte Dokumente</li>
-            <li>Lösung: retrieval-native Zugriffskontrolle, von Anfang an mitgedacht</li>
-          </ul>
-        </article>
+        <a class="docket-item" href="episoden/ep-03-sicherheitsrisiken.html">
+          <span class="docket-no">EP 03<span class="series">Serie 2/4</span></span>
+          <span>
+            <h3 class="docket-title">Wenn der hilfreiche Chatbot zu viel weiss: Sicherheitsrisiken beim Wissens-Assistenten</h3>
+            <p class="docket-meta">Luana · Thomas · Ladina · ca. 14–15 Min.</p>
+          </span>
+          <span class="docket-arrow">→</span>
+        </a>
 
-        <article class="episode-card" data-series="chatbot">
-          <p class="ep-no">EP 04 · Serie 3/4</p>
-          <h3>Das Schloss an jeder Tür: Zugriffskontrolle für den Wissens-Chatbot technisch umgesetzt</h3>
-          <p class="ep-meta">Thomas · Mauro · Micio &nbsp;·&nbsp; ca. 14–15 Min.</p>
-          <p class="ep-summary">Metadaten-Filterung macht aus der Theorie eine technische Grenze: Jedes Dokument bekommt ein unsichtbares Etikett, das vor der Suche prüft, wer es sehen darf.</p>
-          <ul class="ep-learnings">
-            <li>Metadaten-Filterung mit Pinecone + n8n — heute Standard, kein Entwicklungsprojekt mehr</li>
-            <li>Sicherheit ist keine "Anstandsregel", sondern greift technisch vor der Suche</li>
-            <li>Metadaten-Struktur planen, bevor das erste Dokument hochgeladen wird</li>
-          </ul>
-        </article>
+        <a class="docket-item" href="episoden/ep-04-zugriffskontrolle.html">
+          <span class="docket-no">EP 04<span class="series">Serie 3/4</span></span>
+          <span>
+            <h3 class="docket-title">Das Schloss an jeder Tür: Zugriffskontrolle für den Wissens-Chatbot technisch umgesetzt</h3>
+            <p class="docket-meta">Thomas · Mauro · Micio · ca. 14–15 Min.</p>
+          </span>
+          <span class="docket-arrow">→</span>
+        </a>
 
-        <article class="episode-card" data-series="agenten">
-          <p class="ep-no">EP 05</p>
-          <h3>Der digitale Mitarbeiter für die alte Software: Wenn KI einfach klickt, wo keine Schnittstelle existiert</h3>
-          <p class="ep-meta">Mauro · Luana · Ladina &nbsp;·&nbsp; ca. 15–16 Min.</p>
-          <p class="ep-summary">Seit Mai 2026 bedienen Computer-Use-Agenten alte Software ganz ohne API — auch in der EU verfügbar. Die Modellwahl entscheidet aber, wo eure Daten landen.</p>
-          <ul class="ep-learnings">
-            <li>"Computer Use": KI bedient Oberflächen wie ein Mensch, ganz ohne API</li>
-            <li>Modellwahl entscheidet über EU-Datengrenze — bewusste Entscheidung, kein Automatismus</li>
-            <li>Schweizer DSG gilt unverändert, auch für brandneue Agenten-Technologie</li>
-          </ul>
-        </article>
+        <a class="docket-item" href="episoden/ep-05-computer-use-agenten.html">
+          <span class="docket-no">EP 05</span>
+          <span>
+            <h3 class="docket-title">Der digitale Mitarbeiter für die alte Software: Wenn KI einfach klickt, wo keine Schnittstelle existiert</h3>
+            <p class="docket-meta">Mauro · Luana · Ladina · ca. 15–16 Min.</p>
+          </span>
+          <span class="docket-arrow">→</span>
+        </a>
 
-      </div>
+      </nav>
     </div>
   </section>
 
@@ -146,23 +138,19 @@
   </section>
 
   <section id="workshop" class="section workshop">
-    <div class="wrap workshop-grid">
-      <div>
-        <p class="eyebrow">Vom Hören zum Handeln</p>
-        <h2>KI-Standortbestimmung für KMU</h2>
-        <p>Ihr habt die Episoden gehört, aber wisst nicht, wo ihr in eurem eigenen Betrieb anfangen sollt? In einem Workshop ordnen wir gemeinsam ein: Wo steht ihr heute, welcher Use-Case lohnt sich zuerst, und welche Risiken müsst ihr von Anfang an mitdenken.</p>
-        <a href="#kontakt" class="btn btn-primary">Unverbindlich anfragen</a>
-      </div>
+    <div class="wrap">
+      <p class="eyebrow">Vom Hören zum Handeln</p>
+      <h2>KI-Standortbestimmung für KMU</h2>
+      <p>Ihr habt die Episoden gehört, aber wisst nicht, wo ihr in eurem eigenen Betrieb anfangen sollt? In einem Workshop ordnen wir gemeinsam ein: Wo steht ihr heute, welcher Use-Case lohnt sich zuerst, und welche Risiken müsst ihr von Anfang an mitdenken.</p>
+      <a href="#kontakt" class="btn btn-primary">Unverbindlich anfragen</a>
     </div>
   </section>
 
   <section id="kontakt" class="section">
-    <div class="wrap kontakt-grid">
-      <div>
-        <h2>Kontakt</h2>
-        <p>Fragen, Themenwünsche, Workshop-Anfragen — meldet euch.</p>
-        <p class="kontakt-line">E-Mail: <a href="mailto:hallo@kmu-ki-podcast.ch">hallo@kmu-ki-podcast.ch</a></p>
-      </div>
+    <div class="wrap">
+      <h2>Kontakt</h2>
+      <p>Fragen, Themenwünsche, Workshop-Anfragen — meldet euch.</p>
+      <p class="kontakt-line">E-Mail: <a href="mailto:hallo@kmu-ki-podcast.ch">hallo@kmu-ki-podcast.ch</a></p>
     </div>
   </section>
 
@@ -171,6 +159,12 @@
 <footer class="site-footer">
   <div class="wrap footer-row">
     <p>© 2026 KMU-KI-Podcast. Ein persönliches Projekt mit fiktiven KI-Stimmen — kein Ersatz für fachliche Beratung.</p>
+    <nav class="footer-links">
+      <a href="ueber.html">Über das Projekt</a>
+      <a href="faq.html">FAQ</a>
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+    </nav>
   </div>
 </footer>
 

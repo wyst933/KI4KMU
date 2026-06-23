@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="de-CH">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EP 03 — Wenn der hilfreiche Chatbot zu viel weiss | KMU-KI-Podcast</title>
+<meta name="description" content="Sicherheitsrisiken beim Wissens-Assistenten: abteilungsübergreifender Datenabfluss und indirekte Prompt-Injection — und wie retrieval-native Zugriffskontrolle das löst.">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap header-row">
+    <a href="../index.html" class="brand"><span>KMU</span><span class="dot"></span><span>KI</span><span class="dot"></span><span>Podcast</span></a>
+    <nav class="main-nav" id="main-nav">
+      <a href="../index.html#episoden">Episoden</a>
+      <a href="../index.html#serien">Serien</a>
+      <a href="../index.html#workshop">Workshop</a>
+      <a href="../ueber.html">Über das Projekt</a>
+      <a href="../index.html#kontakt">Kontakt</a>
+    </nav>
+    <button class="nav-toggle" id="navToggle" aria-label="Menü öffnen" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<section class="ep-hero">
+  <div class="wrap">
+    <p class="eyebrow">EP 03 · Serie 2/4</p>
+    <h1>Wenn der hilfreiche Chatbot zu viel weiss: Sicherheitsrisiken beim Wissens-Assistenten</h1>
+    <div class="ep-hero-meta">
+      <span>Hosts: <strong>Marina, KI-Stefan</strong></span>
+      <span>Gäste: <strong>Luana, Thomas, Ladina</strong></span>
+      <span>Laufzeit: <strong>ca. 14–15 Min.</strong></span>
+      <span>Recherchedatum: <strong>19. Juni 2026</strong></span>
+    </div>
+  </div>
+</section>
+
+<main class="section">
+  <div class="wrap ep-body">
+
+    <div class="ep-main">
+      <div class="audio-embed">🎧 Audio-Player folgt — Link zur Episode auf Spotify/Apple Podcasts hier einbetten.</div>
+
+      <p>Genau derselbe Chatbot aus Episode 2 kann ungewollt die Gehaltsliste der Geschäftsleitung an einen Praktikanten ausgeben — wenn man einen einzigen Schritt vergisst. Luana erklärt das Risiko und die Lösung.</p>
+
+      <div class="ep-learnings-block">
+        <h3>Key Learnings</h3>
+        <ul>
+          <li>Risiko 1 — Abteilungsübergreifender Datenabfluss ("RAG-Leaks"): ohne Zugriffskontrolle kennt der Bot keine Abteilungsgrenzen</li>
+          <li>Risiko 2 — Indirekte Prompt-Injection: manipulierte Inhalte in Dokumenten werden als vertrauenswürdig behandelt</li>
+          <li>Lösung: retrieval-native Zugriffskontrolle — Prüfung bei jeder Anfrage, nicht nur am Login</li>
+          <li>Bei unautorisiertem Zugriff auf Personendaten: unter Umständen meldepflichtige Datenschutzverletzung nach Schweizer Recht</li>
+        </ul>
+      </div>
+
+      <h2>Praxis-Tipp</h2>
+      <p>Sortiert jedes Dokument vor dem Hochladen in zwei Stapel: "darf jeder sehen" und "nur bestimmte Personen". Das kostet nur Zeit, kein Geld — und ist der wichtigste erste Schritt.</p>
+    </div>
+
+    <aside class="ep-side">
+      <div class="protocol">
+        <p class="protocol-title">Verifizierungs-Protokoll</p>
+        <div class="protocol-step"><span class="step-no">01</span><span class="step-label">Themenwahl: Serienbrücke aus EP 02</span></div>
+        <div class="protocol-step"><span class="step-no">02</span><span class="step-label">Recherche: Luana, Thomas, Ladina</span></div>
+        <div class="protocol-step"><span class="step-no">05</span><span class="step-label">Felix: Meldepflicht-Aussage mit Einzelfallverweis</span></div>
+        <div class="protocol-step"><span class="step-no">08</span><span class="step-label">Status: produktionsreif</span></div>
+      </div>
+
+      <h3 style="margin-top:28px;">Quellen</h3>
+      <ul class="sources-list">
+        <li>blog.skillbyte.de — Architekturen für sichere RAG-Systeme, 1. Juni 2026<span class="src-origin">DACH</span></li>
+        <li>digital-magazin.de — KI-Assistenten Sicherheit 2026: 7 Risiken<span class="src-origin">DACH</span></li>
+        <li>kiteworks.com — RAG-Pipeline-Security-Best-Practices 2026<span class="src-origin">global</span></li>
+        <li>digitalzentrum-chemnitz.de — RAG und Datenschutz<span class="src-origin">DACH</span></li>
+        <li>adsimple.de — RAG-Chatbots und Datenschutz<span class="src-origin">DACH</span></li>
+      </ul>
+    </aside>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-row">
+    <p>© 2026 KMU-KI-Podcast. Ein persönliches Projekt mit fiktiven KI-Stimmen — kein Ersatz für fachliche Beratung.</p>
+    <nav class="footer-links"><a href="../ueber.html">Über das Projekt</a><a href="../faq.html">FAQ</a><a href="../impressum.html">Impressum</a><a href="../datenschutz.html">Datenschutz</a></nav>
+  </div>
+</footer>
+
+<script src="../script.js"></script>
+</body>
+</html>

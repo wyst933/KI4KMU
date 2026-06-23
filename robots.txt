@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://wyst933.github.io/KMU/sitemap.xml
