@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="de-CH">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KI in der Praxis – Use Cases, Best Practices &amp; Einstellungen</title>
+<meta name="description" content="Wie KMU künstliche Intelligenz sinnvoll nutzen: bewährte Use Cases, Best Practices für Prompts und Qualität sowie die wichtigsten Einstellungen für Datenschutz und Modellverhalten.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta property="og:title" content="KI in der Praxis – Use Cases, Best Practices &amp; Einstellungen">
+<meta property="og:description" content="Praxisleitfaden für KMU: Use Cases, Best Practices und die richtigen Einstellungen für den sicheren KI-Einsatz.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  .toc { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+  .toc a { font-family: var(--font-mono); font-size: .8rem; text-decoration: none; padding: 8px 14px; border: 1px solid rgba(245,243,238,0.3); border-radius: 999px; color: #F5F3EE; }
+  .toc a:hover { background: var(--color-accent); border-color: var(--color-accent); }
+  .grid-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+  .card { background: var(--color-surface); border: 1px solid var(--color-line); border-radius: var(--radius); padding: 24px; }
+  .card h3 { margin-bottom: .4em; }
+  .card p { margin: 0 0 .8em; color: var(--color-muted); font-size: .95rem; }
+  .tag { display: inline-block; font-family: var(--font-mono); font-size: .7rem; padding: 3px 8px; border-radius: 4px; background: rgba(30,142,107,.12); color: var(--color-success); margin-right: 6px; }
+  .tag.warn { background: rgba(255,106,61,.14); color: #c4401a; }
+  .card ul { margin: 0; padding-left: 18px; font-size: .92rem; }
+  .card li { margin-bottom: 6px; }
+  .rules { list-style: none; counter-reset: rule; padding: 0; margin: 0; border-top: 1px solid var(--color-line); }
+  .rules li { counter-increment: rule; display: grid; grid-template-columns: 54px 1fr; gap: 16px; padding: 20px 0; border-bottom: 1px solid var(--color-line); }
+  .rules li::before { content: counter(rule, decimal-leading-zero); font-family: var(--font-mono); color: var(--color-accent); }
+  .rules h3 { margin-bottom: .25em; font-size: 1.08rem; }
+  .rules p { margin: 0; color: var(--color-muted); }
+  table.settings { width: 100%; border-collapse: collapse; background: var(--color-surface); border: 1px solid var(--color-line); border-radius: var(--radius); overflow: hidden; font-size: .92rem; }
+  table.settings th, table.settings td { text-align: left; padding: 14px 16px; border-bottom: 1px solid var(--color-line); vertical-align: top; }
+  table.settings th { background: var(--color-primary); color: #fff; font-family: var(--font-head); font-size: .85rem; }
+  table.settings td:first-child { font-weight: 600; color: var(--color-primary); width: 24%; }
+  .table-scroll { overflow-x: auto; }
+  .table-scroll table { min-width: 640px; }
+  pre.prompt { background: var(--color-primary); color: #F5F3EE; padding: 22px; border-radius: var(--radius); font-family: var(--font-mono); font-size: .82rem; line-height: 1.6; white-space: pre-wrap; margin: 0; }
+  pre.prompt .k { color: var(--color-accent); }
+  .checklist { list-style: none; padding: 0; margin: 0; }
+  .checklist li { padding: 10px 0 10px 32px; position: relative; border-bottom: 1px solid var(--color-line); }
+  .checklist li::before { content: "✓"; position: absolute; left: 0; color: var(--color-success); font-weight: 700; }
+  .note { border-left: 4px solid var(--color-accent); background: var(--color-surface); padding: 16px 20px; border-radius: 0 var(--radius) var(--radius) 0; margin-top: 24px; font-size: .92rem; }
+  @media (max-width: 760px) { .rules li { grid-template-columns: 1fr; gap: 4px; } }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap header-row">
+    <a href="index.html" class="brand">
+      <span>KMU</span><span class="dot"></span><span>KI</span><span class="dot"></span><span>Podcast</span>
+    </a>
+    <nav class="main-nav" id="main-nav">
+      <a href="index.html#episoden">Episoden</a>
+      <a href="ki-praxis.html">KI in der Praxis</a>
+      <a href="ueber.html">Über das Projekt</a>
+      <a href="faq.html">FAQ</a>
+    </nav>
+    <button class="nav-toggle" id="navToggle" aria-label="Menü öffnen" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main>
+
+  <section class="ep-hero">
+    <div class="wrap">
+      <p class="eyebrow">// praxisleitfaden</p>
+      <h1>KI in der Praxis:<br>Use Cases, Best Practices, Einstellungen.</h1>
+      <p class="hero-lead" style="color:rgba(245,243,238,0.75)">Was bringt KI im KMU-Alltag wirklich, wie holt man gute Ergebnisse heraus – und welche Schalter sollte man vor dem ersten Einsatz umlegen? Ein kompakter Leitfaden ohne Hype.</p>
+      <nav class="toc" aria-label="Inhalt">
+        <a href="#usecases">01 Use Cases</a>
+        <a href="#bestpractices">02 Best Practices</a>
+        <a href="#prompt">03 Prompt-Vorlage</a>
+        <a href="#einstellungen">04 Einstellungen</a>
+        <a href="#start">05 Einstieg</a>
+      </nav>
+    </div>
+  </section>
+
+  <section id="usecases" class="section">
+    <div class="wrap">
+      <p class="eyebrow">01</p>
+      <h2>Use Cases, die sich im KMU lohnen</h2>
+      <p class="section-lead">Starte dort, wo Aufgaben häufig, textlastig und tolerant gegenüber kleinen Fehlern sind – und ein Mensch das Ergebnis prüft.</p>
+
+      <div class="grid-cards">
+        <article class="card">
+          <span class="tag">Einstieg leicht</span>
+          <h3>Texte &amp; Kommunikation</h3>
+          <p>E-Mails, Offerten, Stelleninserate, Social-Media-Beiträge, Übersetzungen (DE/FR/IT/EN).</p>
+          <ul>
+            <li>Entwurf in Minuten statt Stunden</li>
+            <li>Ton und Zielgruppe vorgeben</li>
+            <li>Immer Korrektur lesen – Zahlen und Namen prüfen</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <span class="tag">Einstieg leicht</span>
+          <h3>Zusammenfassen &amp; Auswerten</h3>
+          <p>Sitzungsprotokolle, lange Dokumente, Kundenfeedback, Verträge in Kurzform.</p>
+          <ul>
+            <li>Aufgaben und Entscheide extrahieren</li>
+            <li>Mehrere Dokumente vergleichen</li>
+            <li>Bei Verträgen: Orientierung, keine Rechtsberatung</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <span class="tag">Mittlerer Aufwand</span>
+          <h3>Wissens-Chatbot (intern)</h3>
+          <p>Fragen zu Prozessen, Richtlinien und Handbüchern – ideal fürs Onboarding neuer Mitarbeitender.</p>
+          <ul>
+            <li>Antworten auf Basis eigener Dokumente (RAG)</li>
+            <li>Zugriffsrechte sauber abbilden</li>
+            <li>Quellenangaben in jeder Antwort</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <span class="tag">Mittlerer Aufwand</span>
+          <h3>Kundenservice</h3>
+          <p>Antwortvorschläge für Support-Teams, FAQ-Assistenten, Ticket-Sortierung.</p>
+          <ul>
+            <li>Zuerst als Assistenz für Mitarbeitende</li>
+            <li>Klare Übergabe an Menschen</li>
+            <li>KI-Einsatz gegenüber Kunden transparent machen</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <span class="tag">Mittlerer Aufwand</span>
+          <h3>Administration &amp; Buchhaltung</h3>
+          <p>Rechnungen auslesen, Belege vorkontieren, Daten aus PDFs in Tabellen überführen.</p>
+          <ul>
+            <li>Stichproben-Kontrolle einplanen</li>
+            <li>Sensible Daten nur mit passenden Verträgen</li>
+            <li>Automatisierung schrittweise ausbauen</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <span class="tag warn">Fortgeschritten</span>
+          <h3>Agenten &amp; Automatisierung</h3>
+          <p>KI, die mehrstufige Aufgaben erledigt oder in Software klickt, wo keine Schnittstelle existiert.</p>
+          <ul>
+            <li>Nur mit eng begrenzten Rechten</li>
+            <li>Kritische Aktionen menschlich freigeben</li>
+            <li>Protokollierung aller Schritte</li>
+          </ul>
+          <p style="margin-top:10px"><a href="episoden/ep-05-computer-use-agenten.html">→ Episode 05 dazu</a></p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="bestpractices" class="section section-muted">
+    <div class="wrap">
+      <p class="eyebrow">02</p>
+      <h2>Best Practices</h2>
+      <p class="section-lead">Sieben Regeln, die den Unterschied zwischen «nett ausprobiert» und «im Betrieb nützlich» machen.</p>
+
+      <ol class="rules">
+        <li>
+          <div>
+            <h3>Mit einem konkreten Problem starten</h3>
+            <p>Nicht «Wir brauchen KI», sondern «Wir verbringen zehn Stunden pro Woche mit Offert-Entwürfen». Ein messbarer Ausgangspunkt zeigt später, ob es sich gelohnt hat.</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <h3>Mensch bleibt in der Verantwortung</h3>
+            <p>KI liefert Entwürfe, keine Wahrheiten. Sprachmodelle können überzeugend klingende Fehler produzieren («Halluzinationen»). Was nach aussen geht oder Entscheide beeinflusst, wird geprüft.</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <h3>Kontext schlägt Cleverness</h3>
+            <p>Gute Ergebnisse entstehen durch Rolle, Ziel, Zielgruppe, Beispiele und Format – nicht durch Zauberformeln. Je präziser der Auftrag, desto weniger Nacharbeit.</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <h3>Iterieren statt einmal fragen</h3>
+            <p>Der erste Entwurf ist der Anfang. Nachfragen, korrigieren, Beispiele ergänzen: «Kürzer», «formeller», «mit Zahlen aus Anhang». Gute Prompts werden gesammelt und im Team geteilt.</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <h3>Sensible Daten bewusst behandeln</h3>
+            <p>Keine Personendaten, Geschäftsgeheimnisse oder Passwörter in Gratis-Tools ohne Datenschutz-Zusicherung. Im Zweifel anonymisieren oder auf Business-Angebote mit Auftragsverarbeitung wechseln.</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <h3>Klare Spielregeln im Team</h3>
+            <p>Eine einseitige KI-Richtlinie genügt für den Start: erlaubte Tools, verbotene Datenarten, Prüfpflicht, Kennzeichnung, Ansprechperson. Das schafft Sicherheit statt Schatten-IT.</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <h3>Klein pilotieren, dann skalieren</h3>
+            <p>Ein Team, ein Use Case, vier bis sechs Wochen. Zeitgewinn, Qualität und Zufriedenheit messen – erst dann ausrollen. Schulung ist dabei wichtiger als das Tool.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="prompt" class="section">
+    <div class="wrap">
+      <p class="eyebrow">03</p>
+      <h2>Prompt-Vorlage: Rolle – Ziel – Kontext – Format</h2>
+      <p class="section-lead">Eine einfache Struktur, die für die meisten Alltagsaufgaben funktioniert. Anpassen, in die Teamablage legen, wiederverwenden.</p>
+<pre class="prompt"><span class="k">Rolle:</span>     Du bist Kundenberater:in eines Schweizer Handwerksbetriebs.
+<span class="k">Ziel:</span>      Schreibe eine Antwort auf die unten stehende Kundenanfrage.
+<span class="k">Kontext:</span>   Wir sind freundlich, direkt und siezen. Lieferzeit aktuell 3 Wochen.
+            Preise nur nennen, wenn sie in der Anfrage stehen.
+<span class="k">Format:</span>    Max. 120 Wörter, 2 Absätze, Schweizer Rechtschreibung (ss statt ß).
+<span class="k">Prüfen:</span>    Markiere am Ende Angaben, die ich noch verifizieren muss.
+
+<span class="k">Anfrage:</span>   «…»</pre>
+      <div class="note"><strong>Tipp:</strong> Gib ein Beispiel für eine gute Antwort mit («Few-Shot»). Das verbessert Stil und Struktur oft stärker als jede zusätzliche Anweisung.</div>
+    </div>
+  </section>
+
+  <section id="einstellungen" class="section section-muted">
+    <div class="wrap">
+      <p class="eyebrow">04</p>
+      <h2>Die wichtigsten Einstellungen</h2>
+      <p class="section-lead">Bezeichnungen und Menüpfade unterscheiden sich je nach Anbieter und ändern sich laufend. Prüfe die aktuelle Dokumentation deines Tools – das Prinzip bleibt gleich.</p>
+
+      <h3>Datenschutz &amp; Datennutzung</h3>
+      <div class="table-scroll">
+        <table class="settings">
+          <thead><tr><th>Einstellung</th><th>Was sie bewirkt</th><th>Empfehlung</th></tr></thead>
+          <tbody>
+            <tr><td>Training mit eigenen Daten</td><td>Legt fest, ob Eingaben zur Verbesserung der Modelle verwendet werden dürfen. Bei Privat-Konten oft standardmässig vom Anbieter vorgegeben, bei Business-Angeboten meist ausgeschlossen.</td><td>Ausschalten bzw. Business-/Team-Tarif mit vertraglicher Zusicherung wählen.</td></tr>
+            <tr><td>Chat-Verlauf &amp; temporäre Chats</td><td>Speichert Gespräche oder verwirft sie nach der Sitzung.</td><td>Für Sensibles temporäre Chats nutzen; Verlauf regelmässig aufräumen.</td></tr>
+            <tr><td>Gedächtnis / Memory</td><td>Das Tool merkt sich Angaben über Sitzungen hinweg.</td><td>Nur aktivieren, wenn nötig; gespeicherte Einträge regelmässig prüfen.</td></tr>
+            <tr><td>Datenstandort &amp; Auftragsverarbeitung</td><td>Wo Daten verarbeitet werden und ob ein Vertrag (AVV/DPA) besteht.</td><td>Für Personendaten Vertrag und Standort klären (revDSG/DSGVO).</td></tr>
+            <tr><td>Konnektoren &amp; Dateizugriff</td><td>Verbindungen zu Mail, Drive, SharePoint, CRM.</td><td>Minimale Rechte, nur benötigte Ordner freigeben.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style="margin-top:2em">Modellverhalten &amp; Qualität</h3>
+      <div class="table-scroll">
+        <table class="settings">
+          <thead><tr><th>Einstellung</th><th>Was sie bewirkt</th><th>Empfehlung</th></tr></thead>
+          <tbody>
+            <tr><td>Modellwahl</td><td>Grössere Modelle sind meist genauer, aber langsamer und teurer.</td><td>Kleines Modell für Routine, grosses für Analyse und komplexe Texte.</td></tr>
+            <tr><td>Systemprompt / Anweisungen</td><td>Dauerhafte Vorgaben zu Rolle, Ton, Sprache und Grenzen.</td><td>Firmenstil, Sprache (de-CH) und Verbote hinterlegen.</td></tr>
+            <tr><td>Temperatur</td><td>Steuert Zufälligkeit: niedrig = konsistent, hoch = kreativ (v. a. in API und Entwicklertools).</td><td>0–0.3 für Fakten und Extraktion; 0.7–1.0 für Ideen und Marketing.</td></tr>
+            <tr><td>Websuche / Quellen</td><td>Erlaubt aktuelle Informationen und Quellenangaben.</td><td>Für Faktenfragen einschalten und Quellen kontrollieren.</td></tr>
+            <tr><td>Reasoning / «Denken»</td><td>Modell überlegt länger vor der Antwort.</td><td>Für Logik, Rechnen und Planung nutzen; für einfache Texte unnötig.</td></tr>
+            <tr><td>Ausgabeformat</td><td>Tabelle, JSON, Stichpunkte, Länge.</td><td>Format explizit vorgeben – spart Nacharbeit.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="note"><strong>Grundregel:</strong> Wer Geschäftsdaten verarbeitet, nutzt ein Business-Angebot mit klaren Datenschutz-Zusicherungen – nicht das private Gratis-Konto.</div>
+    </div>
+  </section>
+
+  <section id="start" class="section">
+    <div class="wrap">
+      <p class="eyebrow">05</p>
+      <h2>Einstieg in 5 Schritten</h2>
+      <div class="grid-cards">
+        <div>
+          <ul class="checklist">
+            <li><strong>Use Case wählen:</strong> häufig, textlastig, geringes Risiko.</li>
+            <li><strong>Tool &amp; Tarif klären:</strong> Datenschutz-Einstellungen prüfen, Business-Variante wählen.</li>
+            <li><strong>Einseitige Richtlinie schreiben:</strong> erlaubt / verboten / Prüfpflicht.</li>
+            <li><strong>Pilot mit kleinem Team:</strong> 4–6 Wochen, Zeit und Qualität messen.</li>
+            <li><strong>Auswerten &amp; ausrollen:</strong> Prompts teilen, Schulung anbieten, nächsten Use Case angehen.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Rechtlicher Rahmen</h3>
+          <p>Für Schweizer KMU relevant: das revidierte Datenschutzgesetz (revDSG) und – bei Geschäft mit der EU – der EU AI Act. Was davon wirklich gilt, ordnet Episode 01 ein.</p>
+          <p><a href="episoden/ep-01-eu-ai-act.html">→ Episode 01: EU AI Act für Schweizer KMU</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section workshop">
+    <div class="wrap">
+      <p class="eyebrow">Vom Lesen zum Handeln</p>
+      <h2>Wo startet ihr im eigenen Betrieb?</h2>
+      <p>In der KI-Standortbestimmung ordnen wir gemeinsam ein, welcher Use Case sich zuerst lohnt und welche Einstellungen und Regeln ihr von Anfang an braucht.</p>
+      <a href="index.html#kontakt" class="btn btn-primary">Unverbindlich anfragen</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-row">
+    <p>© 2026 KMU-KI-Podcast. Allgemeine Information – kein Ersatz für Rechts-, Steuer- oder IT-Sicherheitsberatung.</p>
+    <nav class="footer-links">
+      <a href="ueber.html">Über das Projekt</a>
+      <a href="faq.html">FAQ</a>
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var t = document.getElementById('navToggle'), n = document.getElementById('main-nav');
+    if (!t || !n) return;
+    t.addEventListener('click', function () {
+      var open = n.classList.toggle('open');
+      t.setAttribute('aria-expanded', open);
+    });
+  })();
+</script>
+</body>
+</html>
