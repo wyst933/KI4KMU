@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KI in der Praxis – Use Cases, Best Practices &amp; Einstellungen</title>
+<title>KI in der Praxis – Aufbau, Use Cases &amp; Einstellungen</title>
 <meta name="description" content="Wie KMU künstliche Intelligenz sinnvoll nutzen: bewährte Use Cases, Best Practices für Prompts und Qualität sowie die wichtigsten Einstellungen für Datenschutz und Modellverhalten.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <meta property="og:title" content="KI in der Praxis – Use Cases, Best Practices &amp; Einstellungen">
@@ -42,6 +42,56 @@
   .checklist li { padding: 10px 0 10px 32px; position: relative; border-bottom: 1px solid var(--color-line); }
   .checklist li::before { content: "✓"; position: absolute; left: 0; color: var(--color-success); font-weight: 700; }
   .note { border-left: 4px solid var(--color-accent); background: var(--color-surface); padding: 16px 20px; border-radius: 0 var(--radius) var(--radius) 0; margin-top: 24px; font-size: .92rem; }
+  .diagram { width: 100%; height: auto; display: block; }
+  .diagram .bx rect { fill: var(--color-surface); stroke: var(--color-line); stroke-width: 1.5; }
+  .diagram .bx.hl rect:first-of-type { fill: var(--color-primary); stroke: var(--color-primary); }
+  .diagram text { text-anchor: middle; font-family: var(--font-body); fill: var(--color-text); }
+  .diagram .n { font-family: var(--font-head); font-weight: 700; font-size: 14px; fill: var(--color-primary); }
+  .diagram .s { font-size: 12px; fill: var(--color-muted); }
+  .diagram .s2 { font-size: 11px; fill: #F5F3EE; }
+  .diagram .bx rect.tok { fill: rgba(30,142,107,.15); stroke: var(--color-success); stroke-width: 1; }
+  .diagram .bx rect.lay { fill: var(--color-primary-light); stroke: rgba(255,255,255,.25); }
+  .diagram .bx rect.barb { fill: var(--color-muted); opacity: .45; }
+  .diagram .ln { stroke: var(--color-muted); stroke-width: 2; fill: none; }
+  .diagram .dash { stroke-dasharray: 6 5; }
+  .stages { list-style: none; padding: 0; margin: 16px 0 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
+  .stages.four { grid-template-columns: repeat(4, 1fr); }
+  .stages li { background: var(--color-surface); border: 1px solid var(--color-line); border-radius: var(--radius); padding: 16px; position: relative; }
+  .stages li.live { border-color: var(--color-accent); }
+  .stages h4 { font-family: var(--font-head); color: var(--color-primary); margin: 8px 0 6px; font-size: 1rem; }
+  .stages p { margin: 0; font-size: .86rem; color: var(--color-muted); }
+  .st-no { font-family: var(--font-mono); font-size: .75rem; background: var(--color-primary); color: #fff; border-radius: 4px; padding: 2px 8px; }
+  .layers { display: flex; flex-direction: column; gap: 6px; margin-top: 14px; }
+  .layer { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 14px 18px; border-radius: var(--radius); color: #fff; font-size: .9rem; flex-wrap: wrap; }
+  .layer span { opacity: .85; font-size: .84rem; }
+  .l1 { background: #3A5A8A; margin: 0 0; } .l2 { background: #2D4A78; margin: 0 14px; } .l3 { background: #1F3B66; margin: 0 28px; }
+  .l4 { background: var(--color-accent); margin: 0 42px; } .l5 { background: var(--color-primary); margin: 0 56px; }
+  .sim { background: var(--color-surface); border: 1px solid var(--color-line); border-radius: var(--radius); padding: 24px; margin-top: 14px; }
+  .sim-controls { display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-end; margin-bottom: 18px; }
+  .sim-controls label { display: flex; flex-direction: column; gap: 6px; font-weight: 600; font-size: .9rem; flex: 1; min-width: 220px; }
+  .sim-controls output { font-family: var(--font-mono); color: var(--color-accent); }
+  .sim input[type=range] { width: 100%; accent-color: var(--color-accent); }
+  .ctxbar-wrap { position: relative; padding-bottom: 34px; }
+  .ctxbar { display: flex; height: 38px; border-radius: 6px; overflow: hidden; background: #ECE9E1; }
+  .ctxbar div { height: 100%; transition: width .2s; }
+  .ctxmark { position: absolute; top: -6px; bottom: 28px; border-left: 2px dashed var(--color-text); }
+  .ctxmark span { position: absolute; top: 100%; margin-top: 46px; right: 0; white-space: nowrap; font-family: var(--font-mono); font-size: .7rem; color: var(--color-text); transform: translateY(-34px); }
+  .legend { list-style: none; display: flex; flex-wrap: wrap; gap: 6px 18px; padding: 0; margin: 4px 0 12px; font-size: .82rem; color: var(--color-muted); }
+  .legend i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+  .sim-msg { font-weight: 600; margin: 6px 0; min-height: 1.5em; }
+  .sim-msg.bad { color: #C0392B; } .sim-msg.ok { color: var(--color-success); }
+  .sim-foot { font-size: .78rem; color: var(--color-muted); margin: 8px 0 0; }
+  .tokline { display: flex; gap: 4px; flex-wrap: wrap; }
+  .tokline span { font-family: var(--font-mono); font-size: .82rem; background: rgba(30,142,107,.14); border: 1px solid var(--color-success); border-radius: 4px; padding: 2px 6px; color: var(--color-text); }
+  .prompt-line { font-family: var(--font-head); font-size: 1.15rem; color: var(--color-primary); margin: 0 0 16px; }
+  .prompt-line .blank { color: var(--color-accent); }
+  .prob-row { display: grid; grid-template-columns: 90px 1fr 54px; gap: 12px; align-items: center; margin-bottom: 8px; font-size: .9rem; }
+  .prob-track { background: #ECE9E1; border-radius: 4px; height: 22px; overflow: hidden; }
+  .prob-fill { height: 100%; background: var(--color-primary); border-radius: 4px; transition: width .25s; }
+  .prob-row:first-child .prob-fill { background: var(--color-accent); }
+  .prob-val { font-family: var(--font-mono); text-align: right; font-size: .82rem; }
+  @media (max-width: 900px) { .stages, .stages.four { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 520px) { .stages, .stages.four { grid-template-columns: 1fr; } .l2,.l3,.l4,.l5 { margin: 0; } .prob-row { grid-template-columns: 74px 1fr 46px; } }
   @media (max-width: 760px) { .rules li { grid-template-columns: 1fr; gap: 4px; } }
 </style>
 </head>
@@ -70,20 +120,168 @@
     <div class="wrap">
       <p class="eyebrow">// praxisleitfaden</p>
       <h1>KI in der Praxis:<br>Use Cases, Best Practices, Einstellungen.</h1>
-      <p class="hero-lead" style="color:rgba(245,243,238,0.75)">Was bringt KI im KMU-Alltag wirklich, wie holt man gute Ergebnisse heraus – und welche Schalter sollte man vor dem ersten Einsatz umlegen? Ein kompakter Leitfaden ohne Hype.</p>
+      <p class="hero-lead" style="color:rgba(245,243,238,0.75)">Wie ist ein Sprachmodell aufgebaut, was bringt KI im KMU-Alltag wirklich, wie holt man gute Ergebnisse heraus – und welche Schalter sollte man vor dem ersten Einsatz umlegen? Ein kompakter Leitfaden ohne Hype.</p>
       <nav class="toc" aria-label="Inhalt">
-        <a href="#usecases">01 Use Cases</a>
-        <a href="#bestpractices">02 Best Practices</a>
-        <a href="#prompt">03 Prompt-Vorlage</a>
-        <a href="#einstellungen">04 Einstellungen</a>
-        <a href="#start">05 Einstieg</a>
+        <a href="#aufbau">01 Aufbau</a>
+        <a href="#kontext">02 Kontextfenster</a>
+        <a href="#statistik">03 Wahrscheinlichkeit</a>
+        <a href="#usecases">04 Use Cases</a>
+        <a href="#bestpractices">05 Best Practices</a>
+        <a href="#prompt">06 Prompt</a>
+        <a href="#einstellungen">07 Einstellungen</a>
+        <a href="#start">08 Einstieg</a>
       </nav>
     </div>
   </section>
 
-  <section id="usecases" class="section">
+  <section id="aufbau" class="section">
     <div class="wrap">
-      <p class="eyebrow">01</p>
+      <p class="eyebrow">01 · One-Pager</p>
+      <h2>Wie ein Sprachmodell aufgebaut ist</h2>
+      <p class="section-lead">Ein Sprachmodell (LLM) ist im Kern eine riesige mathematische Funktion, die zu einem Text das <strong>wahrscheinlichste nächste Textstück</strong> berechnet – immer wieder, Stück für Stück.</p>
+
+      <h3>Was bei jeder Anfrage passiert</h3>
+      <div class="table-scroll">
+      <svg class="diagram" viewBox="0 0 1000 300" role="img" aria-labelledby="d1t d1d" style="min-width:760px">
+        <title id="d1t">Ablauf einer Anfrage im Sprachmodell</title>
+        <desc id="d1d">Eingabe wird in Token zerlegt, in Zahlenvektoren übersetzt, vom Transformer verarbeitet, als Wahrscheinlichkeiten ausgegeben, ein Token wird gewählt und an den Text angehängt. Dann wiederholt sich der Vorgang.</desc>
+        <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--color-muted)"/></marker></defs>
+        <g class="bx"><rect x="10" y="60" width="150" height="110" rx="10"/><text class="n" x="85" y="88">1 Eingabe</text><text class="s" x="85" y="115">«Die Hauptstadt</text><text class="s" x="85" y="133">der Schweiz ist»</text><text class="s" x="85" y="156" style="fill:var(--color-accent)">dein Prompt</text></g>
+        <g class="bx"><rect x="205" y="60" width="150" height="110" rx="10"/><text class="n" x="280" y="88">2 Tokenizer</text><text class="s" x="280" y="113">zerlegt in Stücke:</text>
+          <rect x="222" y="124" width="34" height="20" rx="4" class="tok"/><rect x="259" y="124" width="48" height="20" rx="4" class="tok"/><rect x="310" y="124" width="30" height="20" rx="4" class="tok"/>
+          <text class="s" x="239" y="138" style="font-size:10px">Die</text><text class="s" x="283" y="138" style="font-size:10px">Haupt</text><text class="s" x="325" y="138" style="font-size:10px">stadt</text>
+          <text class="s" x="280" y="160">Wörter → Token</text></g>
+        <g class="bx"><rect x="400" y="60" width="150" height="110" rx="10"/><text class="n" x="475" y="88">3 Embedding</text><text class="s" x="475" y="113">jedes Token wird</text><text class="s" x="475" y="131">zu einer Zahlenliste</text><text class="s" x="475" y="156" style="font-size:10px">[0.12, −0.8, 0.33 …]</text></g>
+        <g class="bx hl"><rect x="595" y="40" width="190" height="150" rx="10"/><text class="n" x="690" y="68" style="fill:#fff">4 Transformer</text>
+          <rect x="615" y="82" width="150" height="24" rx="5" class="lay"/><rect x="615" y="112" width="150" height="24" rx="5" class="lay"/><rect x="615" y="142" width="150" height="24" rx="5" class="lay"/>
+          <text class="s2" x="690" y="98">Attention + Netz</text><text class="s2" x="690" y="128">Attention + Netz</text><text class="s2" x="690" y="158">… × viele Schichten</text>
+          <text class="s2" x="690" y="182" style="font-size:10px">Milliarden Gewichte</text></g>
+        <g class="bx"><rect x="830" y="60" width="160" height="110" rx="10"/><text class="n" x="910" y="88">5 Wahrscheinlichkeit</text>
+          <rect x="848" y="100" width="124" height="9" rx="2" style="fill:var(--color-accent)"/><rect x="848" y="115" width="46" height="9" rx="2" class="barb"/><rect x="848" y="130" width="26" height="9" rx="2" class="barb"/><rect x="848" y="145" width="14" height="9" rx="2" class="barb"/>
+          <text class="s" x="910" y="167" style="font-size:10px">Bern 77 % · Zürich 12 % …</text></g>
+        <path d="M160 115H200" class="ln" marker-end="url(#ar)"/><path d="M355 115H395" class="ln" marker-end="url(#ar)"/><path d="M550 115H590" class="ln" marker-end="url(#ar)"/><path d="M785 115H825" class="ln" marker-end="url(#ar)"/>
+        <path d="M910 170V250H85V178" class="ln dash" marker-end="url(#ar)" style="fill:none"/>
+        <text class="s" x="500" y="244" style="font-size:12px">6 Token wählen («Bern») → an den Text anhängen → Schritt 2–5 wiederholen, bis die Antwort fertig ist</text>
+      </svg>
+      </div>
+
+      <h3 style="margin-top:2em">Vom Rohtext zum Assistenten: der Lebenszyklus</h3>
+      <ol class="stages">
+        <li><span class="st-no">A</span><h4>Daten</h4><p>Web, Bücher, Code, Fachtexte. Billionen von Token.</p></li>
+        <li><span class="st-no">B</span><h4>Pre-Training</h4><p>Aufgabe: nächstes Wort erraten. Monate auf Tausenden Spezialchips. Hier entsteht das «Wissen».</p></li>
+        <li><span class="st-no">C</span><h4>Feintuning</h4><p>Mit Beispielen von Frage und guter Antwort lernt das Modell, Anweisungen zu befolgen.</p></li>
+        <li><span class="st-no">D</span><h4>Alignment</h4><p>Menschliches Feedback und Regeln machen Antworten hilfreicher und sicherer.</p></li>
+        <li class="live"><span class="st-no">E</span><h4>Einsatz</h4><p>Gewichte sind fix. Das Modell lernt im Gespräch <em>nichts</em> dazu – es liest nur den Kontext.</p></li>
+      </ol>
+
+      <h3 style="margin-top:2em">Was eine KI-Anwendung rund ums Modell ergänzt</h3>
+      <div class="layers" role="img" aria-label="Schichtenmodell einer KI-Anwendung">
+        <div class="layer l1"><strong>Benutzeroberfläche</strong><span>Chat, Mail-Assistent, Chatbot auf der Website</span></div>
+        <div class="layer l2"><strong>Anweisungen &amp; Kontext</strong><span>Systemprompt, Gesprächsverlauf, hochgeladene Dokumente</span></div>
+        <div class="layer l3"><strong>Wissen &amp; Werkzeuge</strong><span>Suche in eigenen Dokumenten (RAG), Websuche, Rechner, Schnittstellen zu Software</span></div>
+        <div class="layer l4"><strong>Sprachmodell</strong><span>Fixe Gewichte, berechnet Wahrscheinlichkeiten für das nächste Token</span></div>
+        <div class="layer l5"><strong>Infrastruktur</strong><span>Rechenzentrum, Chips, Datenstandort, Verträge</span></div>
+      </div>
+      <div class="note"><strong>Merksatz:</strong> Das Modell «weiss» nichts über deinen Betrieb. Alles, was es über dich wissen soll, muss im Kontext stehen – entweder von dir eingegeben oder über RAG nachgeladen.</div>
+    </div>
+  </section>
+
+  <section id="kontext" class="section section-muted">
+    <div class="wrap">
+      <p class="eyebrow">02 · Deep Dive</p>
+      <h2>Das Kontextfenster: das Arbeitsgedächtnis der KI</h2>
+      <p class="section-lead">Das Modell sieht pro Anfrage nur einen begrenzten Textausschnitt – das Kontextfenster. Es wird in <strong>Token</strong> gemessen, nicht in Wörtern oder Seiten. Alles ausserhalb existiert für das Modell nicht.</p>
+
+      <div class="grid-cards">
+        <div class="card">
+          <h3>Was im Fenster liegt</h3>
+          <ul>
+            <li><strong>Systemprompt:</strong> Vorgaben des Anbieters oder deiner Firma</li>
+            <li><strong>Dokumente:</strong> hochgeladene Dateien, RAG-Treffer</li>
+            <li><strong>Verlauf:</strong> alle bisherigen Fragen und Antworten</li>
+            <li><strong>Reserve für die Antwort:</strong> auch die Ausgabe zählt mit</li>
+          </ul>
+          <p style="margin-top:12px">Ein neuer Chat beginnt mit leerem Fenster. Ein «Gedächtnis» zwischen Chats ist nur eine zusätzlich eingefügte Notiz.</p>
+        </div>
+        <div class="card">
+          <h3>Token verstehen</h3>
+          <p>Token sind Wortteile. Im Deutschen entsteht wegen langer Wörter etwa ein Token pro 0,5–0,7 Wörter (grobe Faustregel).</p>
+          <p class="tokline"><span>Kontext</span><span>fens</span><span>ter</span><span>ist</span><span>be</span><span>grenzt</span></p>
+          <p>Sechs Token für vier Wörter. Fremdsprachen, Zahlen und Code brauchen oft mehr Token.</p>
+        </div>
+      </div>
+
+      <h3 style="margin-top:2em">Ausprobieren: passt es noch ins Fenster?</h3>
+      <div class="sim" id="ctxSim">
+        <div class="sim-controls">
+          <label>Dokumente: <output id="docOut"></output>
+            <input type="range" id="docRange" min="0" max="300000" step="5000" value="60000"></label>
+          <label>Gesprächsverlauf: <output id="histOut"></output>
+            <input type="range" id="histRange" min="0" max="100000" step="2000" value="20000"></label>
+        </div>
+        <div class="ctxbar-wrap">
+          <div class="ctxbar" id="ctxBar" aria-hidden="true"></div>
+          <div class="ctxmark" id="ctxMark"><span>Fenstergrenze · 200'000 Token</span></div>
+        </div>
+        <ul class="legend">
+          <li><i style="background:var(--color-primary)"></i>Systemprompt</li>
+          <li><i style="background:var(--color-success)"></i>Dokumente</li>
+          <li><i style="background:#8A6FD6"></i>Verlauf</li>
+          <li><i style="background:var(--color-accent)"></i>Antwort-Reserve</li>
+          <li><i style="background:#C0392B"></i>Zu viel</li>
+        </ul>
+        <p class="sim-msg" id="ctxMsg" role="status"></p>
+        <p class="sim-foot">Beispielwerte: 200'000 Token Fenster, 2'000 Token Systemprompt, 8'000 Token Antwort-Reserve. Echte Fenster reichen je nach Modell von wenigen Tausend bis über eine Million Token.</p>
+      </div>
+
+      <h3 style="margin-top:2em">Warum «grösser» nicht automatisch «besser» heisst</h3>
+      <div class="grid-cards">
+        <div class="card"><span class="tag warn">Qualität</span><h3>«Lost in the middle»</h3><p>Studien zeigen: Informationen am Anfang und Ende langer Kontexte werden zuverlässiger genutzt als solche in der Mitte. Wichtiges gehört an den Rand.</p></div>
+        <div class="card"><span class="tag warn">Kosten</span><h3>Jedes Token kostet</h3><p>Bezahlt wird pro Eingabe- und Ausgabe-Token. Ein langer Chat schickt bei jeder Antwort den ganzen Verlauf erneut mit.</p></div>
+        <div class="card"><span class="tag warn">Tempo</span><h3>Längere Wartezeit</h3><p>Je mehr Kontext, desto mehr Rechenaufwand. Antworten werden langsamer.</p></div>
+        <div class="card"><span class="tag">Praxis</span><h3>Besser kuratieren</h3><p>Nur Relevantes mitgeben, lange Chats neu starten, Zusammenfassung mitnehmen, bei grossen Wissensbeständen RAG statt Alles-hochladen.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="statistik" class="section">
+    <div class="wrap">
+      <p class="eyebrow">03 · Deep Dive</p>
+      <h2>Statistische Bewertung: warum KI «wahrscheinlich» statt «wahr» antwortet</h2>
+      <p class="section-lead">Bei jedem Schritt vergibt das Modell jedem möglichen nächsten Token einen Wahrscheinlichkeitswert. Dann wird – wie beim gewichteten Würfeln – eines gezogen. Die Antwort ist also <strong>statistisch plausibel</strong>, nicht geprüft.</p>
+
+      <div class="sim" id="probSim">
+        <p class="prompt-line">«Die Hauptstadt der Schweiz ist <span class="blank">___</span>»</p>
+        <div class="probs" id="probBars"></div>
+        <div class="sim-controls">
+          <label>Temperatur: <output id="tOut"></output>
+            <input type="range" id="tRange" min="0.1" max="2" step="0.1" value="1"></label>
+          <button class="btn btn-primary" id="rollBtn" type="button" style="padding:10px 18px">10× würfeln</button>
+        </div>
+        <p class="sim-msg" id="rollOut" role="status"></p>
+        <p class="sim-foot">Illustrative Werte zur Veranschaulichung, keine Messdaten eines realen Modells.</p>
+      </div>
+
+      <div class="grid-cards" style="margin-top:2em">
+        <div class="card"><h3>Temperatur</h3><p>Skaliert die Wahrscheinlichkeiten. Niedrig: das Wahrscheinlichste gewinnt fast immer – konsistent. Hoch: auch Unwahrscheinliches wird gezogen – kreativ, aber fehleranfälliger.</p></div>
+        <div class="card"><h3>Gleiche Frage, andere Antwort</h3><p>Weil gewürfelt wird, kann dieselbe Anfrage verschiedene Antworten liefern. Das ist kein Fehler, sondern das Prinzip.</p></div>
+        <div class="card"><h3>Halluzination</h3><p>Fehlt dem Modell Wissen, liefert es trotzdem die statistisch plausibelste Fortsetzung – etwa eine erfundene Quelle, die «richtig klingt». Selbstsicherer Ton sagt nichts über Richtigkeit.</p></div>
+      </div>
+
+      <h3 style="margin-top:2em">Wie du Qualität im Betrieb statistisch absicherst</h3>
+      <ol class="stages four">
+        <li><span class="st-no">1</span><h4>Testset bauen</h4><p>30–50 echte Fälle aus dem Alltag mit bekannter richtiger Lösung.</p></li>
+        <li><span class="st-no">2</span><h4>Mehrfach laufen lassen</h4><p>Jeden Fall mehrmals testen, da Antworten streuen.</p></li>
+        <li><span class="st-no">3</span><h4>Fehlerquote messen</h4><p>Anteil richtiger, teilweise richtiger und falscher Antworten festhalten.</p></li>
+        <li><span class="st-no">4</span><h4>Schwelle festlegen</h4><p>Je nach Risiko: Marketingtext darf mehr Fehler haben als eine Rechnungsprüfung.</p></li>
+      </ol>
+      <div class="note"><strong>Faustregel:</strong> Je teurer ein Fehler, desto tiefer die Temperatur, desto mehr Quellenangaben, desto strenger die menschliche Kontrolle. Benchmark-Ranglisten der Anbieter ersetzen den Test mit euren eigenen Aufgaben nicht.</div>
+    </div>
+  </section>
+
+  <section id="usecases" class="section section-muted">
+    <div class="wrap">
+      <p class="eyebrow">04</p>
       <h2>Use Cases, die sich im KMU lohnen</h2>
       <p class="section-lead">Starte dort, wo Aufgaben häufig, textlastig und tolerant gegenüber kleinen Fehlern sind – und ein Mensch das Ergebnis prüft.</p>
 
@@ -158,9 +356,9 @@
     </div>
   </section>
 
-  <section id="bestpractices" class="section section-muted">
+  <section id="bestpractices" class="section">
     <div class="wrap">
-      <p class="eyebrow">02</p>
+      <p class="eyebrow">05</p>
       <h2>Best Practices</h2>
       <p class="section-lead">Sieben Regeln, die den Unterschied zwischen «nett ausprobiert» und «im Betrieb nützlich» machen.</p>
 
@@ -211,9 +409,9 @@
     </div>
   </section>
 
-  <section id="prompt" class="section">
+  <section id="prompt" class="section section-muted">
     <div class="wrap">
-      <p class="eyebrow">03</p>
+      <p class="eyebrow">06</p>
       <h2>Prompt-Vorlage: Rolle – Ziel – Kontext – Format</h2>
       <p class="section-lead">Eine einfache Struktur, die für die meisten Alltagsaufgaben funktioniert. Anpassen, in die Teamablage legen, wiederverwenden.</p>
 <pre class="prompt"><span class="k">Rolle:</span>     Du bist Kundenberater:in eines Schweizer Handwerksbetriebs.
@@ -228,9 +426,9 @@
     </div>
   </section>
 
-  <section id="einstellungen" class="section section-muted">
+  <section id="einstellungen" class="section">
     <div class="wrap">
-      <p class="eyebrow">04</p>
+      <p class="eyebrow">07</p>
       <h2>Die wichtigsten Einstellungen</h2>
       <p class="section-lead">Bezeichnungen und Menüpfade unterscheiden sich je nach Anbieter und ändern sich laufend. Prüfe die aktuelle Dokumentation deines Tools – das Prinzip bleibt gleich.</p>
 
@@ -267,9 +465,9 @@
     </div>
   </section>
 
-  <section id="start" class="section">
+  <section id="start" class="section section-muted">
     <div class="wrap">
-      <p class="eyebrow">05</p>
+      <p class="eyebrow">08</p>
       <h2>Einstieg in 5 Schritten</h2>
       <div class="grid-cards">
         <div>
@@ -321,6 +519,70 @@
       var open = n.classList.toggle('open');
       t.setAttribute('aria-expanded', open);
     });
+  })();
+  /* Kontextfenster-Simulation */
+  (function () {
+    var WIN = 200000, SYS = 2000, RES = 8000;
+    var doc = document.getElementById('docRange'), hist = document.getElementById('histRange');
+    if (!doc || !hist) return;
+    var bar = document.getElementById('ctxBar'), mark = document.getElementById('ctxMark'), msg = document.getElementById('ctxMsg');
+    var fmt = function (n) { return n.toLocaleString('de-CH'); };
+    function draw() {
+      var d = +doc.value, h = +hist.value, used = SYS + d + h + RES, scale = Math.max(WIN, used);
+      document.getElementById('docOut').textContent = fmt(d) + ' Token';
+      document.getElementById('histOut').textContent = fmt(h) + ' Token';
+      var segs = [[SYS, 'var(--color-primary)'], [d, 'var(--color-success)'], [h, '#8A6FD6'], [RES, 'var(--color-accent)']];
+      var over = Math.max(0, used - WIN), html = '';
+      var okTotal = used - over;
+      segs.forEach(function (s) { html += '<div style="width:' + (s[0] / scale * 100) + '%;background:' + s[1] + '"></div>'; });
+      if (over > 0) {
+        // Überschuss rot markieren: letzter Teil der Leiste jenseits der Fenstergrenze
+        bar.innerHTML = html + '<div style="position:absolute"></div>';
+      } else bar.innerHTML = html;
+      mark.style.left = (WIN / scale * 100) + '%';
+      bar.style.position = 'relative';
+      if (over > 0) {
+        var ov = document.createElement('div');
+        ov.style.cssText = 'position:absolute;top:0;bottom:0;right:0;width:' + (over / scale * 100) + '%;background:repeating-linear-gradient(45deg,rgba(192,57,43,.85),rgba(192,57,43,.85) 6px,rgba(192,57,43,.6) 6px,rgba(192,57,43,.6) 12px)';
+        bar.appendChild(ov);
+        msg.className = 'sim-msg bad';
+        msg.textContent = fmt(over) + ' Token passen nicht mehr ins Fenster – das Modell lehnt ab oder die ältesten Inhalte fallen weg.';
+      } else {
+        var pages = Math.round((d + h) * 0.6 / 400);
+        msg.className = 'sim-msg ok';
+        msg.textContent = 'Passt: ' + Math.round(used / WIN * 100) + ' % belegt, noch ' + fmt(WIN - used) + ' Token frei (Dokumente und Verlauf ≈ ' + fmt(pages) + ' Seiten Text).';
+      }
+    }
+    doc.addEventListener('input', draw); hist.addEventListener('input', draw); draw();
+  })();
+
+  /* Wahrscheinlichkeits-Simulation */
+  (function () {
+    var items = [['Bern', 6], ['Zürich', 4.2], ['Genf', 3], ['Basel', 2.5], ['Lausanne', 2], ['Andere', 2.8]];
+    var wrap = document.getElementById('probBars'), tr = document.getElementById('tRange');
+    if (!wrap || !tr) return;
+    var out = document.getElementById('rollOut'), probs = [];
+    function calc() {
+      var T = +tr.value, ex = items.map(function (i) { return Math.exp(i[1] / T); });
+      var sum = ex.reduce(function (a, b) { return a + b; }, 0);
+      probs = ex.map(function (e) { return e / sum; });
+    }
+    function draw() {
+      calc();
+      document.getElementById('tOut').textContent = (+tr.value).toFixed(1);
+      wrap.innerHTML = items.map(function (it, i) {
+        var p = probs[i] * 100;
+        return '<div class="prob-row"><span>' + it[0] + '</span><div class="prob-track"><div class="prob-fill" style="width:' + p + '%"></div></div><span class="prob-val">' + p.toFixed(1).replace('.', ',') + ' %</span></div>';
+      }).join('');
+      out.textContent = '';
+    }
+    function pick() { var r = Math.random(), c = 0; for (var i = 0; i < probs.length; i++) { c += probs[i]; if (r <= c) return items[i][0]; } return items[0][0]; }
+    tr.addEventListener('input', draw);
+    document.getElementById('rollBtn').addEventListener('click', function () {
+      var res = []; for (var k = 0; k < 10; k++) res.push(pick());
+      out.textContent = 'Gezogen: ' + res.join(' · ');
+    });
+    draw();
   })();
 </script>
 </body>
