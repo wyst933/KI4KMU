@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="de-CH">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KI in der Praxis – Aufbau, Use Cases &amp; Einstellungen</title>
+<meta name="description" content="Wie ein Sprachmodell aufgebaut ist, was Kontextfenster und Wahrscheinlichkeiten bedeuten, welche Use Cases sich für KMU lohnen und welche Einstellungen vor dem ersten Einsatz zählen.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta property="og:title" content="KI in der Praxis – Aufbau, Use Cases &amp; Einstellungen">
+<meta property="og:description" content="Praxisleitfaden für KMU mit interaktiven Erklärungen, Rechner, Glossar und FAQ.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="praxis.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap header-row">
+    <a href="index.html" class="brand"><span>KMU</span><span class="dot"></span><span>KI</span><span class="dot"></span><span>Podcast</span></a>
+    <nav class="main-nav" id="main-nav">
+      <a href="index.html#episoden">Episoden</a>
+      <a href="ki-praxis.html">KI in der Praxis</a>
+      <a href="ueber.html">Über das Projekt</a>
+      <a href="faq.html">FAQ</a>
+      <a href="index.html#workshop" class="nav-cta">Workshop</a>
+    </nav>
+    <button class="nav-toggle" id="navToggle" aria-label="Menü öffnen" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main>
+
+  <section class="px-hero">
+    <div class="wrap px-hero-grid">
+      <div>
+        <p class="eyebrow">// praxisleitfaden_für_kmu</p>
+        <h1>KI verstehen, <span class="grad">bevor</span> ihr sie einsetzt.</h1>
+        <p class="px-hero-lead">Wie ist ein Sprachmodell aufgebaut? Was ist ein Kontextfenster? Warum antwortet KI «wahrscheinlich» statt «wahr»? Und welche Use Cases und Einstellungen zählen im Betrieb? Mit interaktiven Grafiken zum Ausprobieren.</p>
+        <ul class="chips">
+          <li><a href="#aufbau">Aufbau</a></li>
+          <li><a href="#kontext">Kontextfenster</a></li>
+          <li><a href="#statistik">Wahrscheinlichkeit</a></li>
+          <li><a href="#usecases">Use Cases</a></li>
+          <li><a href="#einstellungen">Einstellungen</a></li>
+          <li><a href="#rechner">Rechner</a></li>
+        </ul>
+      </div>
+      <div class="live-card" aria-label="Beispiel: Wahrscheinlichkeiten für das nächste Wort">
+        <p class="lc-label"><span>nächstes Token</span><i>● live</i></p>
+        <p class="lc-prompt">Die Hauptstadt der Schweiz ist<span class="caret"></span></p>
+        <div class="lc-row"><span>Bern</span><div class="lc-bar"><b style="--w:77%"></b></div><span>77 %</span></div>
+        <div class="lc-row"><span>Zürich</span><div class="lc-bar"><b style="--w:13%"></b></div><span>13 %</span></div>
+        <div class="lc-row"><span>Genf</span><div class="lc-bar"><b style="--w:4%"></b></div><span>4 %</span></div>
+        <div class="lc-row"><span>Basel</span><div class="lc-bar"><b style="--w:2%"></b></div><span>2 %</span></div>
+        <p class="lc-foot">Illustrative Werte. So «denkt» ein Sprachmodell: Es wägt Wahrscheinlichkeiten ab und zieht eines.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap pg">
+
+    <aside class="sidenav" aria-label="Inhalt dieser Seite">
+      <h6>Verstehen</h6>
+      <a href="#aufbau">Aufbau</a>
+      <a href="#kontext">Kontextfenster</a>
+      <a href="#statistik">Wahrscheinlichkeit</a>
+      <h6>Anwenden</h6>
+      <a href="#usecases">Use Cases</a>
+      <a href="#bestpractices">Best Practices</a>
+      <a href="#prompt">Prompt-Vorlage</a>
+      <a href="#einstellungen">Einstellungen</a>
+      <h6>Absichern</h6>
+      <a href="#risiken">Risiken &amp; Recht</a>
+      <a href="#rechner">Rechner</a>
+      <h6>Nachschlagen</h6>
+      <a href="#glossar">Glossar</a>
+      <a href="#faq">FAQ</a>
+      <a href="#quellen">Quellen</a>
+    </aside>
+
+    <div class="pg-main">
+
+      <!-- VERSTEHEN -->
+      <section id="aufbau" class="px-sec">
+        <p class="eyebrow">Verstehen · One-Pager</p>
+        <h2>Wie ein Sprachmodell aufgebaut ist</h2>
+        <p class="section-lead">Ein Sprachmodell (LLM) ist im Kern eine riesige mathematische Funktion. Sie berechnet zu einem Text das <strong>wahrscheinlichste nächste Textstück</strong>, immer wieder, Stück für Stück.</p>
+
+        <h3 class="sub">Was bei jeder Anfrage passiert</h3>
+        <div class="diagram-wrap">
+          <svg class="diagram" viewBox="0 0 1000 300" role="img" aria-labelledby="d1t d1d">
+            <title id="d1t">Ablauf einer Anfrage im Sprachmodell</title>
+            <desc id="d1d">Die Eingabe wird in Token zerlegt, in Zahlenvektoren übersetzt, vom Transformer verarbeitet und als Wahrscheinlichkeiten ausgegeben. Ein Token wird gewählt und an den Text angehängt. Dann wiederholt sich der Vorgang.</desc>
+            <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#8792A6"/></marker></defs>
+            <g class="bx"><rect x="10" y="60" width="150" height="110" rx="12"/><text class="n" x="85" y="88">1 Eingabe</text><text class="s" x="85" y="115">«Die Hauptstadt</text><text class="s" x="85" y="133">der Schweiz ist»</text><text class="s" x="85" y="156" style="fill:var(--color-accent-ink)">dein Prompt</text></g>
+            <g class="bx"><rect x="205" y="60" width="150" height="110" rx="12"/><text class="n" x="280" y="88">2 Tokenizer</text><text class="s" x="280" y="113">zerlegt in Stücke:</text>
+              <rect x="222" y="124" width="34" height="20" rx="5" class="tok"/><rect x="259" y="124" width="48" height="20" rx="5" class="tok"/><rect x="310" y="124" width="30" height="20" rx="5" class="tok"/>
+              <text class="s" x="239" y="138" style="font-size:10px">Die</text><text class="s" x="283" y="138" style="font-size:10px">Haupt</text><text class="s" x="325" y="138" style="font-size:10px">stadt</text>
+              <text class="s" x="280" y="160">Wörter → Token</text></g>
+            <g class="bx"><rect x="400" y="60" width="150" height="110" rx="12"/><text class="n" x="475" y="88">3 Embedding</text><text class="s" x="475" y="113">jedes Token wird</text><text class="s" x="475" y="131">zu einer Zahlenliste</text><text class="s" x="475" y="156" style="font-size:10px">[0.12, −0.8, 0.33 …]</text></g>
+            <g class="bx hl"><rect x="595" y="40" width="190" height="150" rx="12"/><text class="n" x="690" y="68" style="fill:#fff">4 Transformer</text>
+              <rect x="615" y="82" width="150" height="24" rx="6" class="lay"/><rect x="615" y="112" width="150" height="24" rx="6" class="lay"/><rect x="615" y="142" width="150" height="24" rx="6" class="lay"/>
+              <text class="s2" x="690" y="98">Attention + Netz</text><text class="s2" x="690" y="128">Attention + Netz</text><text class="s2" x="690" y="158">… × viele Schichten</text>
+              <text class="s2" x="690" y="182" style="font-size:10px">Milliarden Gewichte</text></g>
+            <g class="bx"><rect x="830" y="60" width="160" height="110" rx="12"/><text class="n" x="910" y="88">5 Wahrscheinlichkeit</text>
+              <rect x="848" y="100" width="124" height="9" rx="3" class="barh"/><rect x="848" y="115" width="46" height="9" rx="3" class="barb"/><rect x="848" y="130" width="26" height="9" rx="3" class="barb"/><rect x="848" y="145" width="14" height="9" rx="3" class="barb"/>
+              <text class="s" x="910" y="167" style="font-size:10px">Bern 77 % · Zürich 13 % …</text></g>
+            <path d="M160 115H200" class="ln" marker-end="url(#ar)"/><path d="M355 115H395" class="ln" marker-end="url(#ar)"/><path d="M550 115H590" class="ln" marker-end="url(#ar)"/><path d="M785 115H825" class="ln" marker-end="url(#ar)"/>
+            <path d="M910 170V250H85V178" class="ln dash" marker-end="url(#ar)"/>
+            <text class="s" x="500" y="244" style="font-size:12px">6 Token wählen («Bern») → an den Text anhängen → Schritt 2–5 wiederholen, bis die Antwort fertig ist</text>
+          </svg>
+        </div>
+
+        <h3 class="sub">Vom Rohtext zum Assistenten: der Lebenszyklus</h3>
+        <ol class="stages">
+          <li><span class="st-no">A</span><h4>Daten</h4><p>Web, Bücher, Code, Fachtexte. Billionen von Token.</p></li>
+          <li><span class="st-no">B</span><h4>Pre-Training</h4><p>Aufgabe: nächstes Wort erraten. Monate auf Tausenden Spezialchips. Hier entsteht das «Wissen».</p></li>
+          <li><span class="st-no">C</span><h4>Feintuning</h4><p>Mit Beispielen von Frage und guter Antwort lernt das Modell, Anweisungen zu befolgen.</p></li>
+          <li><span class="st-no">D</span><h4>Alignment</h4><p>Menschliches Feedback und Regeln machen Antworten hilfreicher und sicherer.</p></li>
+          <li class="live"><span class="st-no">E</span><h4>Einsatz</h4><p>Die Gewichte sind fix. Im Gespräch lernt das Modell <em>nichts</em> dazu, es liest nur den Kontext.</p></li>
+        </ol>
+
+        <h3 class="sub">Was eine KI-Anwendung rund ums Modell ergänzt</h3>
+        <div class="layers" role="img" aria-label="Schichtenmodell einer KI-Anwendung">
+          <div class="layer l1"><strong>Benutzeroberfläche</strong><span>Chat, Mail-Assistent, Chatbot auf der Website</span></div>
+          <div class="layer l2"><strong>Anweisungen &amp; Kontext</strong><span>Systemprompt, Gesprächsverlauf, hochgeladene Dokumente</span></div>
+          <div class="layer l3"><strong>Wissen &amp; Werkzeuge</strong><span>Suche in eigenen Dokumenten (RAG), Websuche, Rechner, Schnittstellen</span></div>
+          <div class="layer l4"><strong>Sprachmodell</strong><span>Fixe Gewichte, berechnet Wahrscheinlichkeiten für das nächste Token</span></div>
+          <div class="layer l5"><strong>Infrastruktur</strong><span>Rechenzentrum, Chips, Datenstandort, Verträge</span></div>
+        </div>
+        <div class="note"><strong>Merksatz:</strong> Das Modell «weiss» nichts über deinen Betrieb. Alles, was es über dich wissen soll, muss im Kontext stehen, entweder von dir eingegeben oder über RAG nachgeladen.</div>
+      </section>
+
+      <section id="kontext" class="px-sec">
+        <p class="eyebrow">Verstehen · Deep Dive</p>
+        <h2>Das Kontextfenster: Arbeitsgedächtnis der KI</h2>
+        <p class="section-lead">Das Modell sieht pro Anfrage nur einen begrenzten Textausschnitt, das Kontextfenster. Es wird in <strong>Token</strong> gemessen, nicht in Wörtern oder Seiten. Was ausserhalb liegt, existiert für das Modell nicht.</p>
+
+        <div class="grid-cards">
+          <div class="card">
+            <h3>Was im Fenster liegt</h3>
+            <ul>
+              <li><strong>Systemprompt:</strong> Vorgaben des Anbieters oder deiner Firma</li>
+              <li><strong>Dokumente:</strong> hochgeladene Dateien, RAG-Treffer</li>
+              <li><strong>Verlauf:</strong> alle bisherigen Fragen und Antworten</li>
+              <li><strong>Reserve für die Antwort:</strong> auch die Ausgabe zählt mit</li>
+            </ul>
+            <p style="margin-top:12px">Ein neuer Chat beginnt mit leerem Fenster. Ein «Gedächtnis» zwischen Chats ist nur eine zusätzlich eingefügte Notiz.</p>
+          </div>
+          <div class="card">
+            <h3>Token verstehen</h3>
+            <p>Token sind Wortteile. Im Deutschen entsteht wegen langer Wörter etwa ein Token pro 0,5–0,7 Wörter (grobe Faustregel).</p>
+            <p class="tokline"><span>Kontext</span><span>fens</span><span>ter</span><span>ist</span><span>be</span><span>grenzt</span></p>
+            <p>Sechs Token für vier Wörter. Fremdsprachen, Zahlen und Code brauchen oft mehr Token.</p>
+          </div>
+        </div>
+
+        <h3 class="sub">Ausprobieren: passt es noch ins Fenster?</h3>
+        <div class="sim" id="ctxSim">
+          <div class="sim-controls">
+            <label for="docRange">Dokumente: <output id="docOut"></output>
+              <input type="range" id="docRange" min="0" max="300000" step="5000" value="60000"></label>
+            <label for="histRange">Gesprächsverlauf: <output id="histOut"></output>
+              <input type="range" id="histRange" min="0" max="100000" step="2000" value="20000"></label>
+          </div>
+          <div class="ctxbar-wrap">
+            <div class="ctxbar" id="ctxBar" aria-hidden="true"></div>
+            <div class="ctxmark" id="ctxMark"><span>Fenstergrenze · 200'000 Token</span></div>
+          </div>
+          <ul class="legend">
+            <li><i style="background:var(--navy)"></i>Systemprompt</li>
+            <li><i style="background:var(--color-success)"></i>Dokumente</li>
+            <li><i style="background:#8A6FD6"></i>Verlauf</li>
+            <li><i style="background:var(--color-accent)"></i>Antwort-Reserve</li>
+            <li><i style="background:#E2543F"></i>Zu viel</li>
+          </ul>
+          <p class="sim-msg" id="ctxMsg" role="status"></p>
+          <p class="sim-foot">Beispielwerte: 200'000 Token Fenster, 2'000 Token Systemprompt, 8'000 Token Antwort-Reserve. Echte Fenster reichen je nach Modell von wenigen Tausend bis über eine Million Token.</p>
+        </div>
+
+        <h3 class="sub">Warum «grösser» nicht automatisch «besser» heisst</h3>
+        <div class="grid-cards">
+          <div class="card"><span class="tag warn">Qualität</span><h3>«Lost in the middle»</h3><p>Studien zeigen: Informationen am Anfang und Ende langer Kontexte werden zuverlässiger genutzt als solche in der Mitte. Wichtiges gehört an den Rand.</p></div>
+          <div class="card"><span class="tag warn">Kosten</span><h3>Jedes Token kostet</h3><p>Bezahlt wird pro Eingabe- und Ausgabe-Token. Ein langer Chat schickt bei jeder Antwort den ganzen Verlauf erneut mit.</p></div>
+          <div class="card"><span class="tag warn">Tempo</span><h3>Längere Wartezeit</h3><p>Je mehr Kontext, desto mehr Rechenaufwand. Antworten werden langsamer.</p></div>
+          <div class="card"><span class="tag">Praxis</span><h3>Besser kuratieren</h3><p>Nur Relevantes mitgeben, lange Chats neu starten, Zusammenfassung mitnehmen, bei grossen Wissensbeständen RAG statt alles hochzuladen.</p></div>
+        </div>
+      </section>
+
+      <section id="statistik" class="px-sec">
+        <p class="eyebrow">Verstehen · Deep Dive</p>
+        <h2>Statistische Bewertung: «wahrscheinlich» statt «wahr»</h2>
+        <p class="section-lead">Bei jedem Schritt vergibt das Modell jedem möglichen nächsten Token einen Wahrscheinlichkeitswert. Dann wird, wie beim gewichteten Würfeln, eines gezogen. Die Antwort ist <strong>statistisch plausibel</strong>, aber nicht geprüft.</p>
+
+        <div class="sim" id="probSim">
+          <p class="prompt-line">«Die Hauptstadt der Schweiz ist <span class="blank">___</span>»</p>
+          <div class="probs" id="probBars"></div>
+          <div class="sim-controls" style="margin-top:18px">
+            <label for="tRange">Temperatur: <output id="tOut"></output>
+              <input type="range" id="tRange" min="0.1" max="2" step="0.1" value="1"></label>
+            <button class="btn btn-primary" id="rollBtn" type="button">10× würfeln</button>
+          </div>
+          <p class="sim-msg" id="rollOut" role="status"></p>
+          <p class="sim-foot">Illustrative Werte zur Veranschaulichung, keine Messdaten eines realen Modells.</p>
+        </div>
+
+        <div class="grid-cards" style="margin-top:16px">
+          <div class="card"><h3>Temperatur</h3><p>Skaliert die Wahrscheinlichkeiten. Niedrig: das Wahrscheinlichste gewinnt fast immer, die Antworten sind konsistent. Hoch: auch Unwahrscheinliches wird gezogen, kreativer, aber fehleranfälliger.</p></div>
+          <div class="card"><h3>Gleiche Frage, andere Antwort</h3><p>Weil gewürfelt wird, kann dieselbe Anfrage verschiedene Antworten liefern. Das ist kein Fehler, sondern das Prinzip.</p></div>
+          <div class="card"><h3>Halluzination</h3><p>Fehlt dem Modell Wissen, liefert es trotzdem die plausibelste Fortsetzung, etwa eine erfundene Quelle, die «richtig klingt». Ein selbstsicherer Ton sagt nichts über Richtigkeit.</p></div>
+        </div>
+
+        <h3 class="sub">Wie du Qualität im Betrieb statistisch absicherst</h3>
+        <ol class="stages four">
+          <li><span class="st-no">1</span><h4>Testset bauen</h4><p>30–50 echte Fälle aus dem Alltag mit bekannter richtiger Lösung.</p></li>
+          <li><span class="st-no">2</span><h4>Mehrfach laufen lassen</h4><p>Jeden Fall mehrmals testen, da Antworten streuen.</p></li>
+          <li><span class="st-no">3</span><h4>Fehlerquote messen</h4><p>Anteil richtiger, teilweise richtiger und falscher Antworten festhalten.</p></li>
+          <li><span class="st-no">4</span><h4>Schwelle festlegen</h4><p>Je nach Risiko: Ein Marketingtext darf mehr Fehler haben als eine Rechnungsprüfung.</p></li>
+        </ol>
+        <div class="note"><strong>Faustregel:</strong> Je teurer ein Fehler, desto tiefer die Temperatur, desto mehr Quellenangaben, desto strenger die menschliche Kontrolle. Benchmark-Ranglisten der Anbieter ersetzen den Test mit euren eigenen Aufgaben nicht.</div>
+      </section>
+
+      <!-- ANWENDEN -->
+      <section id="usecases" class="px-sec">
+        <p class="eyebrow">Anwenden</p>
+        <h2>Use Cases, die sich im KMU lohnen</h2>
+        <p class="section-lead">Starte dort, wo Aufgaben häufig, textlastig und tolerant gegenüber kleinen Fehlern sind, und wo ein Mensch das Ergebnis prüft.</p>
+
+        <div class="bento">
+          <article class="bc w3">
+            <span class="tag">Einstieg leicht</span>
+            <div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></div>
+            <h3>Texte &amp; Kommunikation</h3>
+            <p>E-Mails, Offerten, Stelleninserate, Social-Media-Beiträge, Übersetzungen (DE/FR/IT/EN).</p>
+            <ul><li>Entwurf in Minuten statt Stunden</li><li>Ton und Zielgruppe vorgeben</li><li>Immer Korrektur lesen, Zahlen und Namen prüfen</li></ul>
+          </article>
+          <article class="bc w3">
+            <span class="tag">Einstieg leicht</span>
+            <div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg></div>
+            <h3>Zusammenfassen &amp; Auswerten</h3>
+            <p>Sitzungsprotokolle, lange Dokumente, Kundenfeedback, Verträge in Kurzform.</p>
+            <ul><li>Aufgaben und Entscheide extrahieren</li><li>Mehrere Dokumente vergleichen</li><li>Bei Verträgen: Orientierung, keine Rechtsberatung</li></ul>
+          </article>
+          <article class="bc">
+            <span class="tag warn">Mittel</span>
+            <div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg></div>
+            <h3>Wissens-Chatbot</h3>
+            <p>Fragen zu Prozessen und Richtlinien, ideal fürs Onboarding.</p>
+            <ul><li>Antworten aus eigenen Dokumenten (RAG)</li><li>Zugriffsrechte sauber abbilden</li><li>Quellenangaben in jeder Antwort</li></ul>
+          </article>
+          <article class="bc">
+            <span class="tag warn">Mittel</span>
+            <div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="14" width="4" height="6" rx="1.5"/><rect x="17" y="14" width="4" height="6" rx="1.5"/></svg></div>
+            <h3>Kundenservice</h3>
+            <p>Antwortvorschläge, FAQ-Assistenten, Ticket-Sortierung.</p>
+            <ul><li>Zuerst als Assistenz für Mitarbeitende</li><li>Klare Übergabe an Menschen</li><li>KI-Einsatz transparent machen</li></ul>
+          </article>
+          <article class="bc">
+            <span class="tag warn">Mittel</span>
+            <div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/></svg></div>
+            <h3>Administration</h3>
+            <p>Rechnungen auslesen, Belege vorkontieren, PDF-Daten in Tabellen.</p>
+            <ul><li>Stichproben-Kontrolle einplanen</li><li>Sensible Daten nur mit Vertrag</li><li>Schrittweise ausbauen</li></ul>
+          </article>
+          <article class="bc w6 dark">
+            <div class="inner">
+              <div>
+                <span class="tag warn" style="position:static;display:inline-block;margin-bottom:14px">Fortgeschritten</span>
+                <div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="6" height="6" rx="1"/><rect x="15" y="15" width="6" height="6" rx="1"/><path d="M6 9v3a3 3 0 0 0 3 3h6"/></svg></div>
+                <h3>Agenten &amp; Automatisierung</h3>
+                <p>KI, die mehrstufige Aufgaben erledigt oder in Software klickt, wo keine Schnittstelle existiert.</p>
+                <p><a href="episoden/ep-05-computer-use-agenten.html">Episode 05 dazu anhören →</a></p>
+              </div>
+              <ul><li>Nur mit eng begrenzten Rechten</li><li>Kritische Aktionen menschlich freigeben</li><li>Alle Schritte protokollieren</li><li>Erst im Testbetrieb, dann produktiv</li></ul>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="bestpractices" class="px-sec">
+        <p class="eyebrow">Anwenden</p>
+        <h2>Best Practices</h2>
+        <p class="section-lead">Sieben Regeln, die den Unterschied machen zwischen «nett ausprobiert» und «im Betrieb nützlich».</p>
+        <ol class="rules">
+          <li><div><h3>Mit einem konkreten Problem starten</h3><p>Nicht «Wir brauchen KI», sondern «Wir verbringen zehn Stunden pro Woche mit Offert-Entwürfen». Ein messbarer Ausgangspunkt zeigt später, ob es sich gelohnt hat.</p></div></li>
+          <li><div><h3>Der Mensch bleibt verantwortlich</h3><p>KI liefert Entwürfe, keine Wahrheiten. Was nach aussen geht oder Entscheide beeinflusst, wird geprüft.</p></div></li>
+          <li><div><h3>Kontext schlägt Cleverness</h3><p>Gute Ergebnisse entstehen durch Rolle, Ziel, Zielgruppe, Beispiele und Format, nicht durch Zauberformeln.</p></div></li>
+          <li><div><h3>Iterieren statt einmal fragen</h3><p>Der erste Entwurf ist der Anfang. Nachfragen, korrigieren, Beispiele ergänzen. Gute Prompts werden gesammelt und im Team geteilt.</p></div></li>
+          <li><div><h3>Sensible Daten bewusst behandeln</h3><p>Keine Personendaten, Geschäftsgeheimnisse oder Passwörter in Gratis-Tools ohne Datenschutz-Zusicherung. Im Zweifel anonymisieren oder ein Business-Angebot mit Auftragsverarbeitung wählen.</p></div></li>
+          <li><div><h3>Klare Spielregeln im Team</h3><p>Eine einseitige KI-Richtlinie genügt für den Start: erlaubte Tools, verbotene Datenarten, Prüfpflicht, Kennzeichnung, Ansprechperson. Das schafft Sicherheit statt Schatten-IT.</p></div></li>
+          <li><div><h3>Klein pilotieren, dann skalieren</h3><p>Ein Team, ein Use Case, vier bis sechs Wochen. Zeitgewinn, Qualität und Zufriedenheit messen, erst dann ausrollen. Schulung ist wichtiger als das Tool.</p></div></li>
+        </ol>
+      </section>
+
+      <section id="prompt" class="px-sec">
+        <p class="eyebrow">Anwenden</p>
+        <h2>Prompt-Vorlage: Rolle, Ziel, Kontext, Format</h2>
+        <p class="section-lead">Eine einfache Struktur, die für die meisten Alltagsaufgaben funktioniert. Kopieren, anpassen, in die Teamablage legen.</p>
+        <div class="codebox">
+          <button class="copy-btn" id="copyPrompt" type="button">Kopieren</button>
+<pre class="prompt" id="promptText"><span class="k">Rolle:</span>     Du bist Kundenberater:in eines Schweizer Handwerksbetriebs.
+<span class="k">Ziel:</span>      Schreibe eine Antwort auf die unten stehende Kundenanfrage.
+<span class="k">Kontext:</span>   Wir sind freundlich, direkt und siezen. Lieferzeit aktuell 3 Wochen.
+            Preise nur nennen, wenn sie in der Anfrage stehen.
+<span class="k">Format:</span>    Max. 120 Wörter, 2 Absätze, Schweizer Rechtschreibung (ss statt ß).
+<span class="k">Prüfen:</span>    Markiere am Ende Angaben, die ich noch verifizieren muss.
+
+<span class="k">Anfrage:</span>   «…»</pre>
+        </div>
+        <div class="note"><strong>Tipp:</strong> Gib ein Beispiel für eine gute Antwort mit («Few-Shot»). Das verbessert Stil und Struktur oft stärker als jede zusätzliche Anweisung.</div>
+      </section>
+
+      <section id="einstellungen" class="px-sec">
+        <p class="eyebrow">Anwenden</p>
+        <h2>Die wichtigsten Einstellungen</h2>
+        <p class="section-lead">Bezeichnungen und Menüpfade unterscheiden sich je nach Anbieter und ändern sich laufend. Prüfe die aktuelle Dokumentation deines Tools. Das Prinzip bleibt gleich.</p>
+
+        <h3 class="sub" style="margin-top:0">Datenschutz &amp; Datennutzung</h3>
+        <div class="table-scroll">
+          <table class="settings">
+            <thead><tr><th>Einstellung</th><th>Was sie bewirkt</th><th>Empfehlung</th></tr></thead>
+            <tbody>
+              <tr><td>Training mit eigenen Daten</td><td>Legt fest, ob Eingaben zur Verbesserung der Modelle verwendet werden dürfen. Bei Privat-Konten oft vom Anbieter vorgegeben, bei Business-Angeboten meist ausgeschlossen.</td><td>Ausschalten bzw. Business-/Team-Tarif mit vertraglicher Zusicherung wählen.</td></tr>
+              <tr><td>Chat-Verlauf &amp; temporäre Chats</td><td>Speichert Gespräche oder verwirft sie nach der Sitzung.</td><td>Für Sensibles temporäre Chats nutzen, den Verlauf regelmässig aufräumen.</td></tr>
+              <tr><td>Gedächtnis / Memory</td><td>Das Tool merkt sich Angaben über Sitzungen hinweg.</td><td>Nur aktivieren, wenn nötig, gespeicherte Einträge regelmässig prüfen.</td></tr>
+              <tr><td>Datenstandort &amp; Auftragsverarbeitung</td><td>Wo Daten verarbeitet werden und ob ein Vertrag (AVV/DPA) besteht.</td><td>Für Personendaten Vertrag und Standort klären (revDSG/DSGVO).</td></tr>
+              <tr><td>Konnektoren &amp; Dateizugriff</td><td>Verbindungen zu Mail, Drive, SharePoint, CRM.</td><td>Minimale Rechte, nur benötigte Ordner freigeben.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="sub">Modellverhalten &amp; Qualität</h3>
+        <div class="table-scroll">
+          <table class="settings">
+            <thead><tr><th>Einstellung</th><th>Was sie bewirkt</th><th>Empfehlung</th></tr></thead>
+            <tbody>
+              <tr><td>Modellwahl</td><td>Grössere Modelle sind meist genauer, aber langsamer und teurer.</td><td>Kleines Modell für Routine, grosses für Analyse und komplexe Texte.</td></tr>
+              <tr><td>Systemprompt / Anweisungen</td><td>Dauerhafte Vorgaben zu Rolle, Ton, Sprache und Grenzen.</td><td>Firmenstil, Sprache (de-CH) und Verbote hinterlegen.</td></tr>
+              <tr><td>Temperatur</td><td>Steuert die Zufälligkeit: niedrig = konsistent, hoch = kreativ (v. a. in API und Entwicklertools).</td><td>0–0.3 für Fakten und Extraktion, 0.7–1.0 für Ideen und Marketing.</td></tr>
+              <tr><td>Websuche / Quellen</td><td>Erlaubt aktuelle Informationen und Quellenangaben.</td><td>Für Faktenfragen einschalten und Quellen kontrollieren.</td></tr>
+              <tr><td>Reasoning / «Denken»</td><td>Das Modell überlegt länger vor der Antwort.</td><td>Für Logik, Rechnen und Planung nutzen, für einfache Texte unnötig.</td></tr>
+              <tr><td>Ausgabeformat</td><td>Tabelle, JSON, Stichpunkte, Länge.</td><td>Format explizit vorgeben, das spart Nacharbeit.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="note"><strong>Grundregel:</strong> Wer Geschäftsdaten verarbeitet, nutzt ein Business-Angebot mit klaren Datenschutz-Zusicherungen, nicht das private Gratis-Konto.</div>
+      </section>
+
+      <!-- ABSICHERN -->
+      <section id="risiken" class="px-sec">
+        <p class="eyebrow">Absichern</p>
+        <h2>Risiken &amp; rechtlicher Rahmen</h2>
+        <p class="section-lead">Kein Grund zur Panik, aber ein Grund für Spielregeln. Die wichtigsten Punkte für Schweizer KMU auf einen Blick. Das ist allgemeine Information, keine Rechtsberatung.</p>
+        <div class="grid-cards">
+          <div class="card"><span class="tag warn">Recht</span><h3>Datenschutz (revDSG)</h3><p>Seit September 2023 gilt das revidierte Schweizer Datenschutzgesetz. Wer Personendaten in KI-Tools eingibt, braucht Transparenz, einen passenden Vertrag mit dem Anbieter und Klarheit über den Datenstandort.</p></div>
+          <div class="card"><span class="tag warn">Recht</span><h3>EU AI Act</h3><p>Relevant, sobald ihr KI-Systeme für den EU-Markt anbietet oder Ergebnisse dort nutzt. Was für Schweizer KMU wirklich bleibt, ordnet Episode 01 ein.</p><p><a href="episoden/ep-01-eu-ai-act.html">Episode 01 anhören →</a></p></div>
+          <div class="card"><span class="tag warn">Sicherheit</span><h3>Datenabfluss &amp; Prompt Injection</h3><p>Ein Chatbot, der zu viel weiss, gibt zu viel preis. Versteckte Anweisungen in Dokumenten können das Verhalten manipulieren.</p><p><a href="episoden/ep-03-sicherheitsrisiken.html">Episode 03</a> · <a href="episoden/ep-04-zugriffskontrolle.html">Episode 04 →</a></p></div>
+          <div class="card"><span class="tag warn">Haftung</span><h3>Verantwortung bleibt beim Betrieb</h3><p>Fehler der KI sind eure Fehler. Ausgaben vor Versand prüfen, Quellen kontrollieren, Urheberrechte beachten.</p></div>
+          <div class="card"><span class="tag">Fairness</span><h3>Bias &amp; Entscheide über Menschen</h3><p>Bei Bewerbungen, Bonität oder Beurteilungen darf KI höchstens unterstützen. Der Entscheid bleibt beim Menschen.</p></div>
+          <div class="card"><span class="tag">Transparenz</span><h3>Kennzeichnen</h3><p>Wenn Kunden mit einer KI sprechen oder Inhalte KI-generiert sind, sagt das offen. Das schafft Vertrauen.</p></div>
+        </div>
+      </section>
+
+      <section id="rechner" class="px-sec">
+        <p class="eyebrow">Absichern</p>
+        <h2>Lohnt es sich? Ein Rechenbeispiel</h2>
+        <p class="section-lead">Schieb die Regler auf eure Verhältnisse. Das ist ein einfaches Rechenmodell mit Annahmen, keine Prognose.</p>
+        <div class="calc">
+          <div class="inputs sim">
+            <label for="cN"><span>Mitarbeitende mit KI-Zugang <output id="cNo"></output></span><input type="range" id="cN" min="1" max="50" step="1" value="5"></label>
+            <label for="cH"><span>Gesparte Zeit pro Person und Woche <output id="cHo"></output></span><input type="range" id="cH" min="0.5" max="10" step="0.5" value="2"></label>
+            <label for="cR"><span>Interner Stundenansatz <output id="cRo"></output></span><input type="range" id="cR" min="40" max="200" step="5" value="80"></label>
+            <label for="cT"><span>Tool-Kosten pro Person und Monat <output id="cTo"></output></span><input type="range" id="cT" min="0" max="100" step="5" value="30"></label>
+            <label for="cP"><span>Anteil, der wirklich in Arbeitszeit mündet <output id="cPo"></output></span><input type="range" id="cP" min="20" max="100" step="5" value="60"></label>
+          </div>
+          <div class="result" aria-live="polite">
+            <p>Netto-Nutzen pro Monat</p>
+            <div class="big" id="rNet">CHF 0</div>
+            <dl>
+              <dt>Wert der gesparten Zeit</dt><dd id="rGain"></dd>
+              <dt>Tool-Kosten</dt><dd id="rCost"></dd>
+              <dt>Netto pro Jahr</dt><dd id="rYear"></dd>
+              <dt>Nutzen pro Franken Kosten</dt><dd id="rFactor"></dd>
+            </dl>
+            <p>Rechnung: Personen × Stunden × 4,33 Wochen × Stundenansatz × Realisierungsgrad − Tool-Kosten. Einführungsaufwand und Schulung sind nicht enthalten.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- NACHSCHLAGEN -->
+      <section id="glossar" class="px-sec">
+        <p class="eyebrow">Nachschlagen</p>
+        <h2>Glossar</h2>
+        <p class="section-lead">Die wichtigsten Begriffe in einem Satz.</p>
+        <dl class="gloss">
+          <div><dt>Token</dt><dd>Kleinste Texteinheit, die ein Modell verarbeitet, meist ein Wortteil.</dd></div>
+          <div><dt>Kontextfenster</dt><dd>Maximale Textmenge, die das Modell pro Anfrage gleichzeitig sieht.</dd></div>
+          <div><dt>Prompt</dt><dd>Die Anweisung oder Frage, die du dem Modell gibst.</dd></div>
+          <div><dt>Systemprompt</dt><dd>Dauerhafte Vorgaben im Hintergrund, die Rolle und Regeln festlegen.</dd></div>
+          <div><dt>Temperatur</dt><dd>Regler für Zufälligkeit: niedrig konsistent, hoch kreativ.</dd></div>
+          <div><dt>Halluzination</dt><dd>Plausibel klingende, aber erfundene oder falsche Aussage.</dd></div>
+          <div><dt>RAG</dt><dd>Retrieval-Augmented Generation: passende Dokumentstellen werden gesucht und dem Modell als Kontext mitgegeben.</dd></div>
+          <div><dt>Embedding</dt><dd>Zahlenvektor, der die Bedeutung eines Textes abbildet. Grundlage der Ähnlichkeitssuche.</dd></div>
+          <div><dt>Transformer</dt><dd>Architektur moderner Sprachmodelle, die über «Attention» Zusammenhänge im Text gewichtet.</dd></div>
+          <div><dt>Feintuning</dt><dd>Nachtraining eines Modells mit eigenen Beispielen für einen bestimmten Zweck.</dd></div>
+          <div><dt>Agent</dt><dd>KI, die Werkzeuge nutzt und mehrere Schritte selbstständig ausführt.</dd></div>
+          <div><dt>Prompt Injection</dt><dd>Angriff, bei dem versteckte Anweisungen in Eingaben das Verhalten des Modells umlenken.</dd></div>
+        </dl>
+      </section>
+
+      <section id="faq" class="px-sec">
+        <p class="eyebrow">Nachschlagen</p>
+        <h2>Häufige Fragen</h2>
+        <details class="faq-item" open><summary>Lernt die KI aus meinen Eingaben?</summary><p>Im laufenden Gespräch nicht: Die Gewichte des Modells bleiben fix, es liest nur den Kontext. Ob Anbieter Eingaben später zum Training verwenden, hängt von Tarif und Einstellungen ab. Bei Business-Angeboten ist das meist ausgeschlossen.</p></details>
+        <details class="faq-item"><summary>Warum bekomme ich bei gleicher Frage andere Antworten?</summary><p>Das Modell zieht das nächste Token aus einer Wahrscheinlichkeitsverteilung. Mit tiefer Temperatur werden die Antworten gleichförmiger, ganz identisch sind sie selten.</p></details>
+        <details class="faq-item"><summary>Wie erkenne ich Halluzinationen?</summary><p>Quellen verlangen und nachprüfen, Zahlen und Namen gegenchecken, bei wichtigen Fakten eine zweite unabhängige Quelle nutzen. Ein sicherer Ton ist kein Qualitätsmerkmal.</p></details>
+        <details class="faq-item"><summary>Welches Tool sollen wir nehmen?</summary><p>Zuerst Use Case und Datenschutzanforderungen klären, dann zwei bis drei Tools mit eurem Testset vergleichen. Die Modelle verbessern sich schnell, deshalb lohnt sich keine langfristige Festlegung ohne Ausstiegsmöglichkeit.</p></details>
+        <details class="faq-item"><summary>Dürfen wir Kundendaten eingeben?</summary><p>Nur mit passendem Vertrag, geklärtem Datenstandort und entsprechender Information der Betroffenen. Im Zweifel anonymisieren und Rechtsberatung beiziehen.</p></details>
+        <details class="faq-item"><summary>Ersetzt KI Mitarbeitende?</summary><p>In KMU wirkt KI heute vor allem als Assistenz: Sie nimmt Routinearbeit ab und beschleunigt Entwürfe. Verantwortung, Beziehung und Urteil bleiben bei Menschen.</p></details>
+      </section>
+
+      <section id="quellen" class="px-sec">
+        <p class="eyebrow">Nachschlagen</p>
+        <h2>Quellen &amp; Weiterlesen</h2>
+        <ul class="sources">
+          <li><a href="https://arxiv.org/abs/1706.03762" target="_blank" rel="noopener">Attention Is All You Need</a><small>Vaswani et al., 2017 · Grundlagenpapier zur Transformer-Architektur</small></li>
+          <li><a href="https://arxiv.org/abs/2005.14165" target="_blank" rel="noopener">Language Models are Few-Shot Learners</a><small>Brown et al., 2020 · Beispiele im Prompt (Few-Shot)</small></li>
+          <li><a href="https://arxiv.org/abs/2307.03172" target="_blank" rel="noopener">Lost in the Middle: How Language Models Use Long Contexts</a><small>Liu et al., 2023 · Nutzung langer Kontexte</small></li>
+          <li><a href="https://arxiv.org/abs/2005.11401" target="_blank" rel="noopener">Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks</a><small>Lewis et al., 2020 · Grundlagen von RAG</small></li>
+          <li><a href="https://arxiv.org/abs/2202.03629" target="_blank" rel="noopener">Survey of Hallucination in Natural Language Generation</a><small>Ji et al., 2022 · Übersicht zu Halluzinationen</small></li>
+          <li><a href="https://www.edoeb.admin.ch" target="_blank" rel="noopener">Eidg. Datenschutz- und Öffentlichkeitsbeauftragter (EDÖB)</a><small>Behörde · Informationen zum Schweizer Datenschutz</small></li>
+          <li><a href="https://artificialintelligenceact.eu" target="_blank" rel="noopener">EU Artificial Intelligence Act</a><small>Informationsportal · Texte und Zeitplan des EU AI Act</small></li>
+        </ul>
+      </section>
+
+      <div class="px-cta">
+        <p class="eyebrow" style="color:#FF9A78">Vom Lesen zum Handeln</p>
+        <h2>Wo startet ihr im eigenen Betrieb?</h2>
+        <p>In der KI-Standortbestimmung ordnen wir gemeinsam ein, welcher Use Case sich zuerst lohnt und welche Einstellungen und Regeln ihr von Anfang an braucht.</p>
+        <div class="hero-actions">
+          <a href="index.html#kontakt" class="btn btn-primary">Unverbindlich anfragen</a>
+          <a href="index.html#episoden" class="btn btn-light">Episoden anhören</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-row">
+    <p>© 2026 KMU-KI-Podcast. Allgemeine Information, kein Ersatz für Rechts-, Steuer- oder IT-Sicherheitsberatung.</p>
+    <nav class="footer-links">
+      <a href="ueber.html">Über das Projekt</a>
+      <a href="faq.html">FAQ</a>
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="praxis.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
